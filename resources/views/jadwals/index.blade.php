@@ -18,13 +18,13 @@
     <!-- Filter -->
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4">
         <form method="GET" action="{{ route('jadwals.index') }}" 
-            class="flex flex-wrap gap-6 items-end">
-            
+            class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6 items-stretch lg:items-end">
+
             <!-- Filter Ibadah -->
-            <div>
+            <div class="w-full sm:w-48">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ibadah</label>
                 <select name="id_ibadah" 
-                        class="mt-1 block w-48 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     <option value="">Semua</option>
                     @foreach($ibadahs as $ibadah)
                         <option value="{{ $ibadah->id }}" {{ request('id_ibadah') == $ibadah->id ? 'selected' : '' }}>
@@ -35,10 +35,10 @@
             </div>
 
             <!-- Filter Bulan -->
-            <div>
+            <div class="w-full sm:w-32">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Bulan</label>
                 <select name="bulan" 
-                        class="mt-1 block w-32 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     @for ($m = 1; $m <= 12; $m++)
                         <option value="{{ $m }}" 
                             {{ request('bulan', now()->month) == $m ? 'selected' : '' }}>
@@ -49,25 +49,25 @@
             </div>
 
             <!-- Filter Tahun -->
-            <div>
+            <div class="w-full sm:w-28">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tahun</label>
                 <input type="number" name="tahun" 
                     value="{{ request('tahun', now()->year) }}" 
-                    class="mt-1 block w-28 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
             </div>
 
             <!-- Tombol Filter, Reset, Export -->
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto mt-2 lg:mt-0">
                 <button type="submit" 
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded-md text-sm shadow transition">
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Filter
                 </button>
                 <a href="{{ route('jadwals.index') }}" 
-                class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1.5 rounded-md text-sm shadow transition">
+                    class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Reset
                 </a>
                 <a href="{{ route('jadwals.export.pdf', request()->query()) }}"
-                class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded-md text-sm shadow transition">
+                    class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Export PDF
                 </a>
             </div>

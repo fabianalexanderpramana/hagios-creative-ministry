@@ -24,14 +24,15 @@ class JadwalController extends Controller
             'live_cam_3','live_cam_4','live_cam_5','foto'
         ]);
 
-        // Filter ibadah kalau dipilih
+        // Filter ibadah
         if ($request->filled('id_ibadah')) {
             $jadwals->where('id_ibadah', $request->id_ibadah);
         }
 
         // Selalu filter bulan & tahun (default current)
         $jadwals->whereMonth('tanggal', $bulan)
-                ->whereYear('tanggal', $tahun);
+                ->whereYear('tanggal', $tahun)
+                ->orderBy('tanggal', 'asc');
 
         $jadwals = $jadwals->get();
 
