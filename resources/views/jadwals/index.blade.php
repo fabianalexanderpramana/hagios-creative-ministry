@@ -39,9 +39,9 @@
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Bulan</label>
                 <select name="bulan" 
                         class="mt-1 block w-32 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
-                    <option value="">Semua</option>
                     @for ($m = 1; $m <= 12; $m++)
-                        <option value="{{ $m }}" {{ request('bulan') == $m ? 'selected' : '' }}>
+                        <option value="{{ $m }}" 
+                            {{ request('bulan', now()->month) == $m ? 'selected' : '' }}>
                             {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
                         </option>
                     @endfor
@@ -51,7 +51,8 @@
             <!-- Filter Tahun -->
             <div>
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tahun</label>
-                <input type="number" name="tahun" value="{{ request('tahun', now()->year) }}" 
+                <input type="number" name="tahun" 
+                    value="{{ request('tahun', now()->year) }}" 
                     class="mt-1 block w-28 rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
             </div>
 

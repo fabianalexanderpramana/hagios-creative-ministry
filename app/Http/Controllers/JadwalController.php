@@ -12,33 +12,31 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class JadwalController extends Controller
 {
     public function index(Request $request)
-{
-    $ibadahs = Ibadah::all();
+    {
+        $ibadahs = Ibadah::all();
 
-    $jadwals = Jadwal::with([
-        'ibadah','videotron','live_op','live_cam_1','live_cam_2',
-        'live_cam_3','live_cam_4','live_cam_5','foto'
-    ]);
+        // Default bulan & tahun = current time
+        $bulan = $request->get('bulan', now()->month);
+        $tahun = $request->get('tahun', now()->year);
 
-    // Filter berdasarkan ibadah
-    if ($request->filled('id_ibadah')) {
-        $jadwals->where('id_ibadah', $request->id_ibadah);
-    }
+        $jadwals = Jadwal::with([
+            'ibadah','videotron','live_op','live_cam_1','live_cam_2',
+            'live_cam_3','live_cam_4','live_cam_5','foto'
+        ]);
 
-    // Filter berdasarkan bulan & tahun
-    if ($request->filled('bulan')) {
-        $bulan = $request->bulan;
-        $tahun = $request->tahun ?? now()->year;
+        // Filter ibadah kalau dipilih
+        if ($request->filled('id_ibadah')) {
+            $jadwals->where('id_ibadah', $request->id_ibadah);
+        }
 
+        // Selalu filter bulan & tahun (default current)
         $jadwals->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun);
+
+        $jadwals = $jadwals->get();
+
+        return view('jadwals.index', compact('jadwals', 'ibadahs'));
     }
-
-    $jadwals = $jadwals->get();
-
-    return view('jadwals.index', compact('jadwals', 'ibadahs'));
-}
-
 
     public function create()
     {
