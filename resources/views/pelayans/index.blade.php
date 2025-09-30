@@ -37,22 +37,22 @@
                             <td class="px-6 py-3 text-gray-600 dark:text-gray-300">
                                 {{ $pelayan->tgl_lahir ?? '-' }}
                             </td>
-                            <td class="px-6 py-3">
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
                                 @forelse ($pelayan->pelayanans as $p)
-                                    <span class="inline-block bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 px-2 py-1 rounded text-xs mr-1">
-                                        {{ $p->nama_pelayanan }}
-                                    </span>
+                                    <div class="flex">
+                                        <li class="before:content-['•'] before:mr-2 before:text-gray-700">{{ $p->nama_pelayanan }}</li>
+                                    </div>
                                 @empty
-                                    <span class="text-gray-400 text-sm">-</span>
+                                    <span class="text-gray-800 dark:text-gray-100">-</span>
                                 @endforelse
                             </td>
-                            <td class="px-6 py-3">
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
                                 @forelse ($pelayan->ibadahs as $i)
-                                    <span class="inline-block bg-yellow-100 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200 px-2 py-1 rounded text-xs mr-1">
-                                        {{ $i->nama_ibadah }}
-                                    </span>
+                                    <div class="flex">
+                                        <li class="before:content-['•'] before:mr-2 before:text-gray-700">{{ $i->nama_ibadah }}</li>
+                                    </div>
                                 @empty
-                                    <span class="text-gray-400 text-sm">-</span>
+                                    <span class="text-gray-800 dark:text-gray-100">-</span>
                                 @endforelse
                             </td>
                             <td class="px-6 py-3 text-center">

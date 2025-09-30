@@ -10,12 +10,12 @@ class Pelayan extends Model
 
     public function pelayanans()
     {
-        return $this->belongsToMany(Pelayanan::class, 'pelayan_to_pelayanans', 'id_pelayan', 'id_pelayanan');
+        return $this->belongsToMany(Pelayanan::class, 'pelayan_to_pelayanans', 'id_pelayan', 'id_pelayanan')->orderBy('id_pelayanan', 'asc');
     }
 
     public function ibadahs()
     {
-        return $this->belongsToMany(Ibadah::class, 'pelayan_to_ibadahs', 'id_pelayan', 'id_ibadah');
+        return $this->belongsToMany(Ibadah::class, 'pelayan_to_ibadahs', 'id_pelayan', 'id_ibadah')->orderBy('id_ibadah', 'asc');
     }
 
     public function user()
