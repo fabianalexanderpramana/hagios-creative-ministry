@@ -27,7 +27,7 @@
                     class="auto-submit mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     <option value="">Semua</option>
                     @foreach($ibadahs as $ibadah)
-                        <option value="{{ $ibadah->id }}" {{ request('id_ibadah') == $ibadah->id ? 'selected' : '' }}>
+                        <option value="{{ $ibadah->id }}" {{ ($id_ibadah == $ibadah->id) ? 'selected' : '' }}>
                             {{ $ibadah->nama_ibadah }}
                         </option>
                     @endforeach
@@ -40,8 +40,7 @@
                 <select name="bulan" 
                     class="auto-submit mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     @for ($m = 1; $m <= 12; $m++)
-                        <option value="{{ $m }}" 
-                            {{ request('bulan', now()->month) == $m ? 'selected' : '' }}>
+                        <option value="{{ $m }}" {{ ($bulan == $m) ? 'selected' : '' }}>
                             {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
                         </option>
                     @endfor
@@ -54,16 +53,16 @@
                 <select name="tahun" 
                     class="auto-submit mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     @for ($y = 2025; $y <= now()->year + 1; $y++)
-                        <option value="{{ $y }}" {{ request('tahun', now()->year) == $y ? 'selected' : '' }}>
+                        <option value="{{ $y }}" {{ ($tahun == $y) ? 'selected' : '' }}>
                             {{ $y }}
                         </option>
                     @endfor
                 </select>
             </div>
 
-            <!-- Tombol Reset & Export (opsional tetap ada) -->
+            <!-- Tombol Reset & Export -->
             <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto mt-2 lg:mt-0">
-                <a href="{{ route('jadwals.index') }}" 
+                <a href="{{ route('jadwals.index', ['reset' => 1]) }}" 
                     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Reset
                 </a>

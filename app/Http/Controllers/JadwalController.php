@@ -15,9 +15,25 @@ class JadwalController extends Controller
     {
         $ibadahs = Ibadah::all();
 
-        // Default bulan & tahun = current time
-        $bulan = $request->get('bulan', now()->month);
-        $tahun = $request->get('tahun', now()->year);
+        // Jika reset ditekan -> hapus session filter
+        if ($request->has('reset')) {
+            session()->forget(['filter_id_ibadah', 'filter_bulan', 'filter_tahun']);
+            return redirect()->route('jadwals.index');
+        }
+
+        // Simpan ke session kalau ada request baru
+        if ($request->filled('id_ibadah') || $request->filled('bulan') || $request->filled('tahun')) {
+            session([
+                'filter_id_ibadah' => $request->id_ibadah,
+                'filter_bulan' => $request->bulan,
+                'filter_tahun' => $request->tahun,
+            ]);
+        }
+
+        // Ambil dari session atau pakai default
+        $id_ibadah = session('filter_id_ibadah');
+        $bulan = session('filter_bulan', now()->month);
+        $tahun = session('filter_tahun', now()->year);
 
         $jadwals = Jadwal::with([
             'ibadah','videotron','live_op','live_cam_1','live_cam_2',
@@ -25,18 +41,18 @@ class JadwalController extends Controller
         ]);
 
         // Filter ibadah
-        if ($request->filled('id_ibadah')) {
-            $jadwals->where('id_ibadah', $request->id_ibadah);
+        if ($id_ibadah) {
+            $jadwals->where('id_ibadah', $id_ibadah);
         }
 
-        // Selalu filter bulan & tahun (default current)
+        // Selalu filter bulan & tahun
         $jadwals->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun)
                 ->orderBy('tanggal', 'asc');
 
         $jadwals = $jadwals->get();
 
-        return view('jadwals.index', compact('jadwals', 'ibadahs'));
+        return view('jadwals.index', compact('jadwals', 'ibadahs', 'id_ibadah', 'bulan', 'tahun'));
     }
 
     public function create()
