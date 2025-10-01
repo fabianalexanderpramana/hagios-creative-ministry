@@ -17,14 +17,14 @@
 
     <!-- Filter -->
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4">
-        <form method="GET" action="{{ route('jadwals.index') }}" 
+        <form id="filterForm" method="GET" action="{{ route('jadwals.index') }}" 
             class="flex flex-col lg:flex-row flex-wrap gap-4 lg:gap-6 items-stretch lg:items-end">
 
             <!-- Filter Ibadah -->
             <div class="w-full sm:w-48">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Ibadah</label>
                 <select name="id_ibadah" 
-                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    class="auto-submit mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     <option value="">Semua</option>
                     @foreach($ibadahs as $ibadah)
                         <option value="{{ $ibadah->id }}" {{ request('id_ibadah') == $ibadah->id ? 'selected' : '' }}>
@@ -38,7 +38,7 @@
             <div class="w-full sm:w-32">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Bulan</label>
                 <select name="bulan" 
-                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    class="auto-submit mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
                     @for ($m = 1; $m <= 12; $m++)
                         <option value="{{ $m }}" 
                             {{ request('bulan', now()->month) == $m ? 'selected' : '' }}>
@@ -51,17 +51,18 @@
             <!-- Filter Tahun -->
             <div class="w-full sm:w-28">
                 <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tahun</label>
-                <input type="number" name="tahun" 
-                    value="{{ request('tahun', now()->year) }}" 
-                    class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                <select name="tahun" 
+                    class="auto-submit mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+                    @for ($y = 2025; $y <= now()->year + 1; $y++)
+                        <option value="{{ $y }}" {{ request('tahun', now()->year) == $y ? 'selected' : '' }}>
+                            {{ $y }}
+                        </option>
+                    @endfor
+                </select>
             </div>
 
-            <!-- Tombol Filter, Reset, Export -->
+            <!-- Tombol Reset & Export (opsional tetap ada) -->
             <div class="flex flex-wrap items-center gap-2 w-full lg:w-auto mt-2 lg:mt-0">
-                <button type="submit" 
-                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm shadow transition">
-                    Filter
-                </button>
                 <a href="{{ route('jadwals.index') }}" 
                     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Reset
@@ -168,4 +169,14 @@
         </div>
     </div>
 </div>
+
+<!-- Script auto submit filter -->
+<script>
+    document.querySelectorAll('.auto-submit').forEach(el => {
+        el.addEventListener('change', () => {
+            document.getElementById('filterForm').submit();
+        });
+    });
+</script>
+
 @endsection

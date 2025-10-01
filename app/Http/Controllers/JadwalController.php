@@ -101,22 +101,28 @@ class JadwalController extends Controller
             'live_cam_4','live_cam_5','foto'
         ]);
 
-        // sesuai filter
+        // Filter ibadah
         if ($request->filled('id_ibadah')) {
             $jadwals->where('id_ibadah', $request->id_ibadah);
         }
-        if ($request->filled('bulan')) {
-            $bulan = $request->bulan;
-            $tahun = $request->tahun ?? now()->year;
-            $jadwals->whereMonth('tanggal', $bulan)
-                    ->whereYear('tanggal', $tahun);
-        }
+
+        // Default bulan & tahun = current
+        $bulan = $request->get('bulan', now()->month);
+        $tahun = $request->get('tahun', now()->year);
+
+        $jadwals->whereMonth('tanggal', $bulan)
+                ->whereYear('tanggal', $tahun)
+                ->orderBy('tanggal', 'asc');
 
         $jadwals = $jadwals->get();
 
         $pdf = Pdf::loadView('jadwals.pdf-export', compact('jadwals'))
                 ->setPaper('a4', 'landscape');
 
-        return $pdf->download('jadwal_hagioscreativeministry.pdf');
+        // Nama file: hcm.bulan.tahun.pdf
+        $bulanNama = \Carbon\Carbon::createFromDate($tahun, $bulan, 1)->translatedFormat('F');
+        $fileName  = 'HCM.' . $bulanNama . '.' . $tahun . '.pdf';
+
+        return $pdf->download($fileName);
     }
 }
