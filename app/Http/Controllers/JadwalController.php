@@ -111,20 +111,19 @@ class JadwalController extends Controller
 
     public function exportPdf(Request $request)
     {
+        $id_ibadah = session('filter_id_ibadah');
+        $bulan = session('filter_bulan', now()->month);
+        $tahun = session('filter_tahun', now()->year);
+
         $jadwals = Jadwal::with([
             'ibadah','videotron','live_op',
             'live_cam_1','live_cam_2','live_cam_3',
             'live_cam_4','live_cam_5','foto'
         ]);
 
-        // Filter ibadah
-        if ($request->filled('id_ibadah')) {
-            $jadwals->where('id_ibadah', $request->id_ibadah);
+        if ($id_ibadah) {
+            $jadwals->where('id_ibadah', $id_ibadah);
         }
-
-        // Default bulan & tahun = current
-        $bulan = $request->get('bulan', now()->month);
-        $tahun = $request->get('tahun', now()->year);
 
         $jadwals->whereMonth('tanggal', $bulan)
                 ->whereYear('tanggal', $tahun)
@@ -132,12 +131,15 @@ class JadwalController extends Controller
 
         $jadwals = $jadwals->get();
 
-        $pdf = Pdf::loadView('jadwals.pdf-export', compact('jadwals'))
-                ->setPaper('a4', 'landscape');
-
-        // Nama file: hcm.bulan.tahun.pdf
         $bulanNama = \Carbon\Carbon::createFromDate($tahun, $bulan, 1)->translatedFormat('F');
-        $fileName  = 'HCM.' . $bulanNama . '.' . $tahun . '.pdf';
+
+        $pdf = Pdf::loadView('jadwals.pdf-export', [
+            'jadwals' => $jadwals,
+            'bulanNama' => $bulanNama,
+            'tahun' => $tahun
+        ])->setPaper('a4', 'landscape');
+
+        $fileName = 'HCM.' . $bulanNama . '.' . $tahun . '.pdf';
 
         return $pdf->download($fileName);
     }

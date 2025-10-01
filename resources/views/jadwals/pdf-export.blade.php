@@ -14,7 +14,8 @@
     </style>
 </head>
 <body>
-    <h3 style="text-align:center;">Jadwal Hagios Creative Ministry</h3>
+<h3 style="text-align:center;">Jadwal Hagios Creative Ministry</h3>
+<h4 style="text-align:center; margin: bottom 2px;">{{ $bulanNama }} {{ $tahun }}</h4>
     <table>
         <thead>
             <tr>
@@ -30,7 +31,10 @@
         <tbody>
         @foreach($jadwals as $jadwal)
             <tr>
-                <td>{{ $jadwal->ibadah->nama_ibadah }}</td>
+                <td>
+                    <b>{{ $jadwal->ibadah->nama_ibadah }}</b><br>
+                    <i>{{ $jadwal->ibadah->waktu }}</i>
+                </td>
                 <td>{{ $jadwal->tanggal ? $jadwal->tanggal->format('d-m-Y') : '' }}</td>
                 <td>{{ $jadwal->videotron->nama_pelayan ?? '' }}</td>
                 <td>{{ $jadwal->live_op->nama_pelayan ?? '' }}</td>
