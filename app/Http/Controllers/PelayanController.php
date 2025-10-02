@@ -9,13 +9,32 @@ use Illuminate\Http\Request;
 
 class PelayanController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pelayans = Pelayan::with(['pelayanans','ibadahs'])
-                    ->orderBy('nama_pelayan', 'asc')
-                    ->get();
+        $id_ibadah = $request->input('id_ibadah');
+        $id_pelayanan = $request->input('id_pelayanan');
 
-        return view('pelayans.index', compact('pelayans'));
+        $query = Pelayan::with(['pelayanans','ibadahs'])
+                    ->orderBy('nama_pelayan', 'asc');
+
+        if ($id_ibadah) {
+            $query->whereHas('ibadahs', function($q) use ($id_ibadah) {
+                $q->where('ibadahs.id', $id_ibadah);
+            });
+        }
+
+        if ($id_pelayanan) {
+            $query->whereHas('pelayanans', function($q) use ($id_pelayanan) {
+                $q->where('pelayanans.id', $id_pelayanan);
+            });
+        }
+
+        $pelayans = $query->get();
+
+        $ibadahs = Ibadah::all();
+        $pelayanans = Pelayanan::all();
+
+        return view('pelayans.index', compact('pelayans','ibadahs','pelayanans','id_ibadah','id_pelayanan'));
     }
 
     public function create()
