@@ -28,5 +28,17 @@ class Jadwal extends Model
     public function live_cam_4() { return $this->belongsTo(Pelayan::class, 'id_live_cam_4'); }
     public function live_cam_5() { return $this->belongsTo(Pelayan::class, 'id_live_cam_5'); }
     public function foto() { return $this->belongsTo(Pelayan::class, 'id_foto'); }
+
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'id_videotron')
+            ->orWhere('id_live_op', $this->id)
+            ->orWhere('id_live_cam_1', $this->id)
+            ->orWhere('id_live_cam_2', $this->id)
+            ->orWhere('id_live_cam_3', $this->id)
+            ->orWhere('id_live_cam_4', $this->id)
+            ->orWhere('id_live_cam_5', $this->id)
+            ->orWhere('id_foto', $this->id);
+    }
 }
 

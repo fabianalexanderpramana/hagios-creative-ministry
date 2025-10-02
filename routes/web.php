@@ -4,6 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Controllers\PelayanController;
+use App\Http\Controllers\PelayananController;
+use App\Http\Controllers\IbadahController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
 // auth routes dari Breeze
 require __DIR__.'/auth.php';
 
@@ -14,11 +21,11 @@ Route::get('/', function () {
 
 // protected routes
 Route::middleware(['auth'])->group(function () {
-    Route::resource('pelayans', App\Http\Controllers\PelayanController::class);
-    Route::resource('pelayanans', App\Http\Controllers\PelayananController::class);
-    Route::resource('ibadahs', App\Http\Controllers\IbadahController::class);
-    Route::resource('jadwals', App\Http\Controllers\JadwalController::class);
-    Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::resource('pelayans', PelayanController::class);
+    Route::resource('pelayanans', PelayananController::class);
+    Route::resource('ibadahs', IbadahController::class);
+    Route::resource('jadwals', JadwalController::class);
+    Route::resource('users', UserController::class);
 
     Route::get('/dropdown-pelayan/{ibadahId}', function($id) {
         return DB::table('pelayans')
@@ -29,10 +36,12 @@ Route::middleware(['auth'])->group(function () {
             ->get();
     });
 
-    Route::get('/jadwals/export/pdf', [App\Http\Controllers\JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
+    Route::get('/jadwals/export/pdf', [JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
 
-    Route::get('users/{id}/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('users.reset-password');
-});
+    Route::get('users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    });
 
 require __DIR__.'/auth.php';
 
