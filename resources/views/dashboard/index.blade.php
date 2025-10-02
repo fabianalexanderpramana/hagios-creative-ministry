@@ -7,12 +7,23 @@
     <!-- Header -->
     <div class="flex flex-col gap-1">
         <h2 class="text-lg font-medium text-gray-600 dark:text-gray-300 mb-3">
-            Selamat melayani, {{ Auth::user()->pelayan->nama_pelayan ?? '-' }} 👋
+            Selamat melayani, <b>{{ Auth::user()->pelayan->nama_pelayan ?? '-' }}</b> &#128293;
         </h2>
 
         <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
             Jadwal Saya
         </h1>
+    </div>
+
+    <!-- Filter -->
+    <div class="w-48">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Tampilkan</label>
+        <select name="filter" onchange="this.form.submit()"
+            class="mt-1 block w-full rounded-lg border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white">
+            <option value="future" {{ ($filter ?? 'future') === 'future' ? 'selected' : '' }}>Jadwal Mendatang</option>
+            <option value="current_month" {{ ($filter ?? '') === 'current_month' ? 'selected' : '' }}>Bulan Ini</option>
+            <option value="all" {{ ($filter ?? '') === 'all' ? 'selected' : '' }}>Semua Jadwal</option>
+        </select>
     </div>
 
     <!-- Table Card -->
