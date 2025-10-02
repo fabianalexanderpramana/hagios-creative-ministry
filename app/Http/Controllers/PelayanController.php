@@ -11,7 +11,10 @@ class PelayanController extends Controller
 {
     public function index()
     {
-        $pelayans = Pelayan::with(['pelayanans','ibadahs'])->get();
+        $pelayans = Pelayan::with(['pelayanans','ibadahs'])
+                    ->orderBy('nama_pelayan', 'asc')
+                    ->get();
+
         return view('pelayans.index', compact('pelayans'));
     }
 
@@ -68,12 +71,11 @@ class PelayanController extends Controller
     }
 
     public function getByIbadah($ibadahId)
-{
-    $pelayans = Pelayan::whereHas('ibadahs', function($query) use ($ibadahId) {
-        $query->where('ibadahs.id', $ibadahId); // 👈 tambahkan nama tabel
-    })->get();
+    {
+        $pelayans = Pelayan::whereHas('ibadahs', function($query) use ($ibadahId) {
+            $query->where('ibadahs.id', $ibadahId);
+        })->get();
 
-    return response()->json($pelayans);
-}
-
+        return response()->json($pelayans);
+    }
 }
