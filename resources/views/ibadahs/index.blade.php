@@ -9,10 +9,13 @@
         <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
             Daftar Ibadah
         </h1>
+        
+        @if(auth()->user()->role === 'ADMIN')
         <a href="{{ route('ibadahs.create') }}" 
            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
            + Tambah Ibadah
         </a>
+        @endif
     </div>
 
     <!-- Table Card -->
@@ -27,9 +30,11 @@
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">
                             Waktu
                         </th>
+                        @if(auth()->user()->role === 'ADMIN')
                         <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700 dark:text-gray-200">
                             Aksi
                         </th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
@@ -41,6 +46,7 @@
                             <td class="px-6 py-3 text-gray-600 dark:text-gray-300">
                                 {{ $ibadah->waktu }}
                             </td>
+                            @if(auth()->user()->role === 'ADMIN')
                             <td class="px-6 py-3 text-center">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('ibadahs.edit', $ibadah->id) }}" 
@@ -58,10 +64,12 @@
                                     </form>
                                 </div>
                             </td>
+                            @endif
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="{{ auth()->user()->role === 'ADMIN' ? 3 : 2 }}" 
+                                class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
                                 Belum ada data ibadah
                             </td>
                         </tr>

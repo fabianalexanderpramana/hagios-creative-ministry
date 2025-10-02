@@ -16,6 +16,9 @@
 <body>
 <h3 style="text-align:center;">Jadwal Hagios Creative Ministry</h3>
 <h4 style="text-align:center; margin: bottom 2px;">{{ $bulanNama }} {{ $tahun }}</h4>
+<p style="text-align:center; font-size:11px; margin-top:0;">
+    diexport pada {{ now()->format('d-m-Y H:i:s') }}
+</p>
     <table>
         <thead>
             <tr>

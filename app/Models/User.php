@@ -31,4 +31,14 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Pelayan::class, 'pelayan_id', 'id');
     }
+
+    public function isAdmin()
+    {
+        return $this->role === 'ADMIN';
+    }
+
+    public function isPelayan()
+    {
+        return $this->role === 'PELAYAN';
+    }
 }

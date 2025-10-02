@@ -12,6 +12,7 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    {{-- Menu umum (bisa diakses semua role) --}}
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard.*')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -20,21 +21,24 @@
                         {{ __('Jadwal') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('pelayans.index')" :active="request()->routeIs('pelayans.*')">
-                        {{ __('Pelayan') }}
-                    </x-nav-link>
-
-                    <x-nav-link :href="route('pelayanans.index')" :active="request()->routeIs('pelayanans.*')">
-                        {{ __('Pelayanan') }}
-                    </x-nav-link>
-
                     <x-nav-link :href="route('ibadahs.index')" :active="request()->routeIs('ibadahs.*')">
                         {{ __('Ibadah') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                        {{ __('User') }}
-                    </x-nav-link>
+                    {{-- Menu khusus admin --}}
+                    @if(Auth::user()->isAdmin())
+                        <x-nav-link :href="route('pelayans.index')" :active="request()->routeIs('pelayans.*')">
+                            {{ __('Pelayan') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('pelayanans.index')" :active="request()->routeIs('pelayanans.*')">
+                            {{ __('Pelayanan') }}
+                        </x-nav-link>
+
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                            {{ __('User') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -91,29 +95,33 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard.*')">
+            {{-- Menu umum --}}
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard.*')">
                 {{ __('Dashboard') }}
-            </x-nav-link>
+            </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('jadwals.index')" :active="request()->routeIs('jadwals.*')">
                 {{ __('Jadwal') }}
-            </x-responsive-nav-link>
-            
-            <x-responsive-nav-link :href="route('pelayans.index')" :active="request()->routeIs('pelayans.*')">
-                {{ __('Pelayan') }}
-            </x-responsive-nav-link>
-
-            <x-responsive-nav-link :href="route('pelayanans.index')" :active="request()->routeIs('pelayanans.*')">
-                {{ __('Pelayanan') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('ibadahs.index')" :active="request()->routeIs('ibadahs.*')">
                 {{ __('Ibadah') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
-                {{ __('User') }}
-            </x-responsive-nav-link>
+            {{-- Menu khusus admin --}}
+            @if(Auth::user()->isAdmin())
+                <x-responsive-nav-link :href="route('pelayans.index')" :active="request()->routeIs('pelayans.*')">
+                    {{ __('Pelayan') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('pelayanans.index')" :active="request()->routeIs('pelayanans.*')">
+                    {{ __('Pelayanan') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                    {{ __('User') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

@@ -16,32 +16,38 @@ require __DIR__.'/auth.php';
 
 // redirect root ke jadwals.index
 Route::get('/', function () {
-    return redirect()->route('jadwals.index');
+    return redirect()->route('dashboard');
 });
 
-// protected routes
+// Semua user login
 Route::middleware(['auth'])->group(function () {
-    Route::resource('pelayans', PelayanController::class);
-    Route::resource('pelayanans', PelayananController::class);
-    Route::resource('ibadahs', IbadahController::class);
-    Route::resource('jadwals', JadwalController::class);
-    Route::resource('users', UserController::class);
 
-    Route::get('/dropdown-pelayan/{ibadahId}', function($id) {
-        return DB::table('pelayans')
-            ->join('pelayan_to_ibadahs', 'pelayans.id', '=', 'pelayan_to_ibadahs.id_pelayan')
-            ->join('ibadahs', 'ibadahs.id', '=', 'pelayan_to_ibadahs.id_ibadah')
-            ->where('ibadahs.id', $id)
-            ->select('pelayans.*')
-            ->get();
-    });
-
-    Route::get('/jadwals/export/pdf', [JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
-
-    Route::get('users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
-
+    // akses semua user
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');
+    Route::get('/ibadahs', [IbadahController::class, 'index'])->name('ibadahs.index');
+
+    // khusus admin
+    Route::middleware('admin')->group(function () {
+        Route::resource('pelayans', PelayanController::class);
+        Route::resource('pelayanans', PelayananController::class);
+        Route::resource('ibadahs', IbadahController::class)->except(['index']);
+        Route::resource('jadwals', JadwalController::class)->except(['index']);
+        Route::resource('users', UserController::class);
+
+        Route::get('/dropdown-pelayan/{id}', function($id) {
+            return DB::table('pelayans')
+                ->join('pelayan_to_ibadahs', 'pelayans.id', '=', 'pelayan_to_ibadahs.id_pelayan')
+                ->join('ibadahs', 'ibadahs.id', '=', 'pelayan_to_ibadahs.id_ibadah')
+                ->where('ibadahs.id', $id)
+                ->select('pelayans.*')
+                ->get();
+        });
+
+        Route::get('/jadwals/export/pdf', [JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
+        Route::get('users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
     });
+});
 
 require __DIR__.'/auth.php';
 
