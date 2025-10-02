@@ -24,7 +24,7 @@
             <!-- Desktop Menu -->
             <div class="hidden sm:flex sm:items-center sm:space-x-8 sm:ms-10">
                 @foreach($navLinks as $link)
-                    @if(!$link['adminOnly'] || (Auth::user()->isAdmin() && $link['adminOnly']))
+                    @if(!$link['adminOnly'] || (optional(Auth::user())->isAdmin() && $link['adminOnly']))
                         <a href="{{ route($link['route']) }}"
                            class="px-3 py-2 rounded-md text-sm font-medium
                                   {{ request()->routeIs($link['route'].'*') 
@@ -79,10 +79,11 @@
     </div>
 
     <!-- Responsive Menu -->
+    @auth
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @foreach($navLinks as $link)
-                @if(!$link['adminOnly'] || (Auth::user()->isAdmin() && $link['adminOnly']))
+                @if(!$link['adminOnly'] || (optional(Auth::user())->isAdmin() && $link['adminOnly']))
                     <a href="{{ route($link['route']) }}"
                        class="block px-3 py-2 rounded-md text-base font-medium
                               {{ request()->routeIs($link['route'].'*') 
@@ -114,4 +115,5 @@
             </div>
         </div>
     </div>
+    @endauth
 </nav>
