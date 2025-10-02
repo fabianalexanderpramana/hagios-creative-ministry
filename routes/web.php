@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('pelayanans', App\Http\Controllers\PelayananController::class);
     Route::resource('ibadahs', App\Http\Controllers\IbadahController::class);
     Route::resource('jadwals', App\Http\Controllers\JadwalController::class);
+    Route::resource('users', App\Http\Controllers\UserController::class);
 
     Route::get('/dropdown-pelayan/{ibadahId}', function($id) {
         return DB::table('pelayans')
@@ -29,6 +30,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('/jadwals/export/pdf', [App\Http\Controllers\JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
+
+    Route::get('users/{id}/reset-password', [App\Http\Controllers\UserController::class, 'resetPassword'])->name('users.reset-password');
 });
 
 require __DIR__.'/auth.php';

@@ -27,6 +27,10 @@
                     <x-nav-link :href="route('ibadahs.index')" :active="request()->routeIs('ibadahs.*')">
                         {{ __('Ibadah') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                        {{ __('User') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -35,7 +39,15 @@
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div>{{ Auth::user()->username ?? Auth::user()->name }}</div>
+                            <!-- Bagian Username & Nama Pelayan -->
+                            <div class="flex flex-col text-left">
+                                <span class="font-semibold text-gray-700 dark:text-gray-200">
+                                    {{ Auth::user()->username ?? '-' }}
+                                </span>
+                                <span class="text-xs text-gray-500 dark:text-gray-400">
+                                    {{ Auth::user()->pelayan->nama_pelayan ?? '-' }}
+                                </span>
+                            </div>
 
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -90,13 +102,17 @@
             <x-responsive-nav-link :href="route('ibadahs.index')" :active="request()->routeIs('ibadahs.*')">
                 {{ __('Ibadah') }}
             </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                {{ __('User') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->username ?? Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->pelayan->nama ?? '-' }}</div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->username ?? '-' }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->pelayan->nama_pelayan ?? '-' }}</div>
             </div>
 
             <div class="mt-3 space-y-1">
