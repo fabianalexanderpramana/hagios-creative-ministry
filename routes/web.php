@@ -10,14 +10,18 @@ use App\Http\Controllers\IbadahController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ChangePasswordController;
 
 // auth routes dari Breeze
 require __DIR__.'/auth.php';
 
-// redirect root ke jadwals.index
+// redirect root ke dashboard
 Route::get('/', function () {
     return redirect()->route('dashboard');
 });
+
+Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('password.change.form');
+Route::post('/change-password', [ChangePasswordController::class, 'update'])->name('password.change');
 
 // Semua user login
 Route::middleware(['auth'])->group(function () {
