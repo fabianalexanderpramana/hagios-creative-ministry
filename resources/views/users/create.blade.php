@@ -50,8 +50,7 @@
                 </label>
                 <input type="email" name="email" id="email"
                        class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 
-                              rounded-lg px-3 py-2 focus:ring focus:ring-blue-200"
-                       required>
+                              rounded-lg px-3 py-2 focus:ring focus:ring-blue-200">
             </div>
 
             <!-- Role -->

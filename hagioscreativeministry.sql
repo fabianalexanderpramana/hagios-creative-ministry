@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Sep 25, 2025 at 09:01 AM
+-- Generation Time: Oct 03, 2025 at 02:43 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.1.10
 
@@ -117,8 +117,17 @@ CREATE TABLE `jadwals` (
 --
 
 INSERT INTO `jadwals` (`id`, `id_ibadah`, `tanggal`, `id_videotron`, `id_live_op`, `id_live_cam_1`, `id_live_cam_2`, `id_live_cam_3`, `id_live_cam_4`, `id_live_cam_5`, `id_foto`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 1, '2025-09-27', 6, 5, NULL, 5, 6, 6, 5, 6, NULL, '2025-09-24 20:05:53', '2025-09-24 20:21:03'),
-(2, 2, '2025-09-28', 5, 5, NULL, NULL, NULL, NULL, NULL, 5, NULL, '2025-09-24 20:59:30', '2025-09-24 20:59:30');
+(1, 1, '2025-10-05', 11, 14, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-09-24 20:05:53', '2025-09-30 10:56:44'),
+(2, 2, '2025-10-05', 5, 22, NULL, 16, 20, 9, 12, 18, NULL, '2025-09-24 20:59:30', '2025-09-30 10:57:43'),
+(3, 3, '2025-10-05', 26, 13, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-09-30 10:58:59', '2025-09-30 10:58:59'),
+(4, 5, '2025-10-01', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-09-30 11:00:25', '2025-09-30 11:00:25'),
+(5, 8, '2025-10-02', 11, 6, NULL, NULL, NULL, NULL, NULL, 18, NULL, '2025-09-30 11:00:43', '2025-09-30 11:00:43'),
+(6, 4, '2025-10-07', 8, 12, NULL, NULL, NULL, NULL, NULL, 16, NULL, '2025-10-01 23:32:30', '2025-10-01 23:32:30'),
+(7, 6, '2025-10-14', 11, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:33:07', '2025-10-01 23:33:07'),
+(8, 5, '2025-10-15', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:33:48', '2025-10-01 23:33:48'),
+(9, 7, '2025-10-17', 28, 14, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:34:27', '2025-10-01 23:34:27'),
+(10, 4, '2025-10-21', 11, 9, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-01 23:34:57', '2025-10-01 23:34:57'),
+(11, 5, '2025-10-29', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:35:18', '2025-10-01 23:35:18');
 
 -- --------------------------------------------------------
 
@@ -184,7 +193,10 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (10, '2025_09_16_143727_add_pelayan_id_to_users_table', 2),
 (11, '2025_09_16_144439_add_username_to_users_table', 2),
 (12, '2025_09_16_144628_remove_name_from_users_table', 3),
-(13, '2025_09_25_031020_add_tanggal_to_jadwals_table', 4);
+(13, '2025_09_25_031020_add_tanggal_to_jadwals_table', 4),
+(15, '2025_10_02_064832_add_pelayan_id_to_users_table', 5),
+(16, '2025_10_02_070222_add_role_to_users_table', 5),
+(17, '2025_10_02_073923_add_email_to_users_table', 6);
 
 -- --------------------------------------------------------
 
@@ -197,6 +209,13 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_reset_tokens`
+--
+
+INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
+('fabian.alexander.pramana@gmail.com', '$2y$12$rJpNX2O7u4FavcJxmJD21OchX4rBdty8c9dU3YgmgIHpmcOn6C4Cu', '2025-10-02 02:42:25');
 
 -- --------------------------------------------------------
 
@@ -219,7 +238,7 @@ INSERT INTO `pelayanans` (`id`, `nama_pelayanan`, `created_at`, `updated_at`) VA
 (1, 'Videotron', '2025-09-12 09:09:43', '2025-09-12 09:09:43'),
 (2, 'Live Operator', '2025-09-16 08:53:53', '2025-09-24 21:40:44'),
 (3, 'Live Camera', '2025-09-16 09:20:58', '2025-09-24 21:40:39'),
-(4, 'Foto', '2025-09-24 21:40:56', '2025-09-24 21:40:56');
+(4, 'Foto', '2025-09-24 21:40:56', '2025-09-30 04:57:15');
 
 -- --------------------------------------------------------
 
@@ -241,9 +260,30 @@ CREATE TABLE `pelayans` (
 
 INSERT INTO `pelayans` (`id`, `nama_pelayan`, `tgl_lahir`, `created_at`, `updated_at`) VALUES
 (1, 'ADMIN', '2000-01-01', '2025-09-16 07:43:26', '2025-09-16 07:43:26'),
-(4, 'Fabian', '2025-09-16', '2025-09-16 08:17:15', '2025-09-16 09:17:34'),
-(5, 'Caca', '2025-09-07', '2025-09-16 08:53:42', '2025-09-16 08:53:42'),
-(6, 'Fanuel', '2025-09-02', '2025-09-16 09:09:15', '2025-09-16 09:09:15');
+(4, 'Fabian', '2004-06-17', '2025-09-16 08:17:15', '2025-09-30 10:53:57'),
+(5, 'Caca', '2006-03-18', '2025-09-16 08:53:42', '2025-09-30 10:54:19'),
+(6, 'Fanuel', '2009-09-21', '2025-09-16 09:09:15', '2025-09-30 10:39:01'),
+(8, 'Aidit', '2003-08-05', '2025-09-30 10:30:13', '2025-09-30 10:30:13'),
+(9, 'Ano', '2007-02-18', '2025-09-30 10:31:57', '2025-09-30 10:31:57'),
+(10, 'Dian', '2002-04-15', '2025-09-30 10:33:07', '2025-09-30 10:33:30'),
+(11, 'Dika', '2004-05-08', '2025-09-30 10:34:51', '2025-09-30 10:34:51'),
+(12, 'Endy', '2005-07-27', '2025-09-30 10:35:38', '2025-09-30 10:36:08'),
+(13, 'Evelyne', '2006-05-10', '2025-09-30 10:36:54', '2025-09-30 10:37:16'),
+(14, 'Iwan', '1982-12-24', '2025-09-30 10:40:11', '2025-09-30 10:40:11'),
+(15, 'Jestheo', NULL, '2025-09-30 10:41:05', '2025-09-30 10:41:05'),
+(16, 'Joshua G', '2009-01-12', '2025-09-30 10:41:57', '2025-09-30 10:41:57'),
+(17, 'Joyce', '2004-05-11', '2025-09-30 10:42:44', '2025-09-30 10:42:44'),
+(18, 'M Theo', '2002-02-21', '2025-09-30 10:43:43', '2025-09-30 10:43:43'),
+(19, 'Okta', '2008-10-28', '2025-09-30 10:44:13', '2025-09-30 10:44:40'),
+(20, 'Raffa', NULL, '2025-09-30 10:45:27', '2025-09-30 10:45:27'),
+(21, 'Ryan', '1992-08-11', '2025-09-30 10:47:12', '2025-09-30 10:47:12'),
+(22, 'Reren', '2009-04-25', '2025-09-30 10:47:52', '2025-09-30 10:47:52'),
+(23, 'Thoms', '1995-11-26', '2025-09-30 10:48:12', '2025-09-30 10:48:54'),
+(24, 'Verdy', '2005-05-28', '2025-09-30 10:48:33', '2025-09-30 10:49:18'),
+(25, 'Ezra', NULL, '2025-09-30 10:49:48', '2025-09-30 10:49:48'),
+(26, 'Yona', '1991-04-20', '2025-09-30 10:52:05', '2025-09-30 10:52:05'),
+(27, 'Yusuf P', '2002-03-10', '2025-09-30 10:52:50', '2025-09-30 10:52:50'),
+(28, 'Yusuf S', NULL, '2025-09-30 10:53:30', '2025-09-30 10:53:30');
 
 -- --------------------------------------------------------
 
@@ -254,21 +294,107 @@ INSERT INTO `pelayans` (`id`, `nama_pelayan`, `tgl_lahir`, `created_at`, `update
 CREATE TABLE `pelayan_to_ibadahs` (
   `id` bigint UNSIGNED NOT NULL,
   `id_pelayan` bigint UNSIGNED NOT NULL,
-  `id_ibadah` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `id_ibadah` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pelayan_to_ibadahs`
 --
 
-INSERT INTO `pelayan_to_ibadahs` (`id`, `id_pelayan`, `id_ibadah`, `created_at`, `updated_at`) VALUES
-(1, 5, 1, NULL, NULL),
-(2, 6, 1, NULL, NULL),
-(3, 5, 2, NULL, NULL),
-(4, 4, 1, NULL, NULL),
-(5, 4, 2, NULL, NULL);
+INSERT INTO `pelayan_to_ibadahs` (`id`, `id_pelayan`, `id_ibadah`) VALUES
+(1, 5, 1),
+(2, 6, 1),
+(3, 5, 2),
+(4, 4, 1),
+(5, 4, 2),
+(6, 4, 3),
+(11, 4, 8),
+(20, 8, 2),
+(21, 8, 3),
+(22, 8, 4),
+(23, 8, 6),
+(24, 8, 8),
+(25, 9, 1),
+(26, 9, 2),
+(27, 9, 3),
+(28, 9, 4),
+(29, 9, 5),
+(30, 9, 6),
+(31, 9, 8),
+(32, 10, 2),
+(33, 10, 8),
+(34, 11, 1),
+(35, 11, 2),
+(36, 11, 4),
+(37, 11, 6),
+(38, 11, 7),
+(39, 11, 8),
+(40, 12, 1),
+(41, 12, 2),
+(42, 12, 3),
+(43, 12, 4),
+(44, 12, 8),
+(45, 13, 1),
+(46, 13, 2),
+(47, 13, 3),
+(48, 13, 8),
+(49, 6, 2),
+(50, 6, 3),
+(51, 6, 8),
+(52, 14, 1),
+(53, 14, 2),
+(54, 14, 3),
+(55, 14, 7),
+(56, 15, 2),
+(57, 16, 2),
+(58, 16, 3),
+(59, 16, 4),
+(60, 16, 7),
+(61, 17, 2),
+(62, 17, 3),
+(63, 17, 8),
+(64, 18, 2),
+(65, 18, 8),
+(66, 19, 1),
+(67, 19, 2),
+(68, 19, 3),
+(69, 19, 4),
+(70, 19, 5),
+(71, 19, 8),
+(72, 20, 2),
+(73, 20, 3),
+(74, 20, 4),
+(75, 20, 7),
+(76, 20, 8),
+(77, 21, 1),
+(78, 21, 2),
+(79, 21, 3),
+(80, 21, 4),
+(81, 21, 5),
+(82, 21, 6),
+(83, 21, 7),
+(84, 21, 8),
+(85, 22, 2),
+(86, 22, 3),
+(87, 22, 8),
+(88, 23, 1),
+(89, 24, 2),
+(90, 25, 1),
+(91, 25, 3),
+(92, 26, 1),
+(93, 26, 2),
+(94, 26, 3),
+(95, 26, 8),
+(96, 27, 2),
+(97, 27, 8),
+(98, 28, 1),
+(99, 28, 2),
+(100, 28, 3),
+(101, 28, 4),
+(102, 28, 5),
+(103, 28, 6),
+(104, 28, 7),
+(105, 28, 8);
 
 -- --------------------------------------------------------
 
@@ -279,22 +405,66 @@ INSERT INTO `pelayan_to_ibadahs` (`id`, `id_pelayan`, `id_ibadah`, `created_at`,
 CREATE TABLE `pelayan_to_pelayanans` (
   `id` bigint UNSIGNED NOT NULL,
   `id_pelayan` bigint UNSIGNED NOT NULL,
-  `id_pelayanan` bigint UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `id_pelayanan` bigint UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `pelayan_to_pelayanans`
 --
 
-INSERT INTO `pelayan_to_pelayanans` (`id`, `id_pelayan`, `id_pelayanan`, `created_at`, `updated_at`) VALUES
-(1, 4, 1, NULL, NULL),
-(2, 5, 1, NULL, NULL),
-(3, 6, 1, NULL, NULL),
-(4, 6, 2, NULL, NULL),
-(5, 4, 2, NULL, NULL),
-(6, 4, 3, NULL, NULL);
+INSERT INTO `pelayan_to_pelayanans` (`id`, `id_pelayan`, `id_pelayanan`) VALUES
+(1, 4, 1),
+(2, 5, 1),
+(3, 6, 1),
+(4, 6, 2),
+(5, 4, 2),
+(6, 4, 3),
+(12, 8, 1),
+(13, 9, 2),
+(14, 9, 3),
+(15, 9, 4),
+(16, 10, 1),
+(17, 10, 2),
+(18, 10, 4),
+(19, 11, 1),
+(20, 12, 1),
+(21, 12, 2),
+(22, 12, 3),
+(23, 12, 4),
+(24, 13, 1),
+(25, 13, 2),
+(26, 13, 3),
+(27, 13, 4),
+(28, 6, 3),
+(29, 14, 1),
+(30, 14, 2),
+(31, 14, 3),
+(32, 14, 4),
+(33, 15, 3),
+(34, 16, 3),
+(35, 16, 4),
+(36, 17, 4),
+(37, 18, 3),
+(38, 18, 4),
+(39, 19, 3),
+(40, 20, 1),
+(41, 20, 3),
+(42, 20, 4),
+(43, 21, 4),
+(44, 22, 1),
+(45, 22, 2),
+(46, 23, 4),
+(47, 24, 3),
+(48, 25, 1),
+(49, 25, 3),
+(50, 26, 1),
+(51, 26, 3),
+(52, 26, 4),
+(53, 27, 3),
+(54, 28, 1),
+(55, 28, 2),
+(56, 28, 4),
+(57, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -316,9 +486,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('AxrW2SGydCgUOejIIblV98XJ2Ik0ezmWHxbEJgOo', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiekt3Smg3c0xwMXBGNEw4d1VHOFA2eVRNU3lFMVdWZHNxQmFZNEtBciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wZWxheWFucyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1758783901),
-('C5mJuNAyPtaUGj0JuHNgRxqHHOqwpYOoOqaMer40', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiaVlVa2tNTEtiVDRGdkhxd0pDMFVJSnpDbGVDM3o1UXY4dWp2WVJlcyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9mb3Jnb3QtcGFzc3dvcmQiO31zOjM6InVybCI7YToxOntzOjg6ImludGVuZGVkIjtzOjI5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvamFkd2FscyI7fX0=', 1758783644),
-('X6YfssA4D8rHco4iCfJYsV1qPGRjxF7pr73KZ6hv', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiMXVtdXhsSVlQOFpkYlhOaWdVaE9iRnlIZEhVaGh3ZjBYR3kzRTZ2ZyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9qYWR3YWxzIjt9czozOiJ1cmwiO2E6MDp7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1758782460);
+('EmOSWIhFxGQSqTBmwdW5ZZXx84LoJ7nqxagmZMbX', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVXZkYjBkVER4Wk1RUXZ3MDU3ZXh3ZkhHMGJ3TlJuek5STUNxcm9XSyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1759421004);
 
 -- --------------------------------------------------------
 
@@ -328,21 +496,23 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
+  `pelayan_id` bigint UNSIGNED DEFAULT NULL,
   `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `pelayan_id` bigint UNSIGNED DEFAULT NULL
+  `role` enum('ADMIN','PELAYAN') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PELAYAN',
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `pelayan_id`) VALUES
-(1, 'adminhcm', NULL, '$2y$12$Jdb3fsS0QG3nxWcS/hzgwuKFRhcaYkeEsdlaeKJc4vpvc1WM0.b8K', NULL, '2025-09-16 07:47:19', '2025-09-16 07:47:19', 1);
+INSERT INTO `users` (`id`, `pelayan_id`, `username`, `password`, `remember_token`, `created_at`, `updated_at`, `role`, `email`) VALUES
+(1, 1, 'adminhcm', '$2y$12$Jdb3fsS0QG3nxWcS/hzgwuKFRhcaYkeEsdlaeKJc4vpvc1WM0.b8K', NULL, '2025-09-16 07:47:19', '2025-10-02 00:41:30', 'ADMIN', 'test@gmail.com'),
+(2, 4, 'fabianalexanderrr', '$2y$12$uUNPnlWt/9nWtefjANw24OaNQwSwjaA4uZFWkQ8YlHWtMWBhuNoeK', NULL, '2025-10-02 00:45:12', '2025-10-02 03:10:50', 'PELAYAN', 'fabian.alexander.pramana@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -455,6 +625,7 @@ ALTER TABLE `sessions`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_username_unique` (`username`),
+  ADD UNIQUE KEY `users_email_unique` (`email`),
   ADD KEY `users_pelayan_id_foreign` (`pelayan_id`);
 
 --
@@ -477,7 +648,7 @@ ALTER TABLE `ibadahs`
 -- AUTO_INCREMENT for table `jadwals`
 --
 ALTER TABLE `jadwals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `jobs`
@@ -489,37 +660,37 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `pelayanans`
 --
 ALTER TABLE `pelayanans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pelayans`
 --
 ALTER TABLE `pelayans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `pelayan_to_ibadahs`
 --
 ALTER TABLE `pelayan_to_ibadahs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `pelayan_to_pelayanans`
 --
 ALTER TABLE `pelayan_to_pelayanans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

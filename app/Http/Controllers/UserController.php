@@ -26,7 +26,7 @@ class UserController extends Controller
         $request->validate([
             'pelayan_id' => 'required|exists:pelayans,id',
             'username'   => 'required|unique:users,username',
-            'email'      => 'required|email|unique:users,email',
+            'email'      => 'nullable|email|unique:users,email',
             'role'       => 'required|in:ADMIN,PELAYAN',
         ]);
 
@@ -62,7 +62,7 @@ class UserController extends Controller
         $request->validate([
             'pelayan_id' => 'required|exists:pelayans,id',
             'username'   => 'required|unique:users,username,' . $user->id,
-            'email'      => 'required|email|unique:users,email,' . $user->id,
+            'email'      => 'nullable|email|unique:users,email,' . $user->id,
             'role'       => 'required|in:ADMIN,PELAYAN',
         ]);
 
