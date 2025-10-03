@@ -78,24 +78,22 @@
                                 {{ $pelayan->nama_pelayan }}
                             </td>
                             <td class="px-6 py-3 text-gray-600 dark:text-gray-300">
-                                {{ $pelayan->tgl_lahir ?? '-' }}
+                                {{ \Carbon\Carbon::parse($pelayan->tgl_lahir)->format('d-m-Y') }}
                             </td>
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
                                 @forelse ($pelayan->pelayanans as $p)
                                     <div class="flex">
-                                        <li class="before:content-['•'] before:mr-2 before:text-gray-700">{{ $p->nama_pelayanan }}</li>
+                                        <li>{{ $p->nama_pelayanan }}</li>
                                     </div>
                                 @empty
-                                    <span class="text-gray-800 dark:text-gray-100">-</span>
                                 @endforelse
                             </td>
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
                                 @forelse ($pelayan->ibadahs as $i)
                                     <div class="flex">
-                                        <li class="before:content-['•'] before:mr-2 before:text-gray-700">{{ $i->nama_ibadah }}</li>
+                                        <li>{{ $i->nama_ibadah }}</li>
                                     </div>
                                 @empty
-                                    <span class="text-gray-800 dark:text-gray-100">-</span>
                                 @endforelse
                             </td>
                             <td class="px-6 py-3 text-center">

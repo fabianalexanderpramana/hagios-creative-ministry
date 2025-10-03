@@ -11,7 +11,13 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('pelayan')->get();
+        $users = User::with('pelayan')
+            ->get()
+            ->sortBy([
+                ['role', 'asc'], // ADMIN comes before PELAYAN alphabetically
+                ['pelayan.nama_pelayan', 'asc'] // Then sort by nama_pelayan alphabetically
+            ]);
+        
         return view('users.index', compact('users'));
     }
 
