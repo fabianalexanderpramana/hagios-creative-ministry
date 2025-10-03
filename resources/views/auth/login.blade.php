@@ -11,7 +11,10 @@
             <x-auth-session-status class="mb-4" :status="session('status')" />
 
             <div class="flex justify-center">
-                <img src="{{ asset('assets/images/logo_hcm_white.png') }}" alt="Logo" class="h-16 w-auto">
+                <!-- Light mode logo (dark colored) -->
+                <img src="{{ asset('assets/images/logo HCM-01.png') }}" alt="Logo HCM" class="h-16 w-auto dark:hidden">
+                <!-- Dark mode logo (white/light colored) -->
+                <img src="{{ asset('assets/images/logo_hcm_white.png') }}" alt="Logo HCM" class="h-16 w-auto hidden dark:block">
             </div>
 
             <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100 text-center mt-4">
