@@ -22,5 +22,10 @@ class Pelayan extends Model
     {
         return $this->hasOne(User::class, 'pelayan_id', 'id');
     }
+
+    public function presensis()
+    {
+        return $this->hasMany(Presensi::class, 'id_pelayan');
+    }
 }
 

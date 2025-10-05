@@ -12,6 +12,7 @@ use App\Http\Controllers\TimController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\PresensiController;
 
 // auth routes dari Breeze
 require __DIR__.'/auth.php';
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
     // akses semua user
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');
+    Route::get('/presensis', [PresensiController::class, 'index'])->name('presensis.index');
     Route::get('/tims', [TimController::class, 'index'])->name('tims.index');
     Route::get('/ibadahs', [IbadahController::class, 'index'])->name('ibadahs.index');
 
@@ -53,6 +55,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('jadwals', JadwalController::class)->except(['index']);
         Route::resource('tims', TimController::class)->except(['index']);
         Route::resource('users', UserController::class);
+        Route::resource('presensis', PresensiController::class)->except(['index','show','destroy']);
 
         Route::get('/jadwals/export/pdf', [JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
         Route::get('users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');

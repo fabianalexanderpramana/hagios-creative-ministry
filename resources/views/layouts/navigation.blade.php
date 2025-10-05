@@ -1,11 +1,13 @@
 @php
     $navLinks = [
         ['label' => 'Dashboard', 'route' => 'dashboard', 'adminOnly' => false],
+        // Ordered: Jadwal, Tim, Presensi, Pelayan, Pelayanan, Ibadah, User
         ['label' => 'Jadwal', 'route' => 'jadwals.index', 'adminOnly' => false],
         ['label' => 'Tim', 'route' => 'tims.index', 'adminOnly' => false],
-        ['label' => 'Ibadah', 'route' => 'ibadahs.index', 'adminOnly' => false],
+        ['label' => 'Presensi', 'route' => 'presensis.index', 'adminOnly' => false],
         ['label' => 'Pelayan', 'route' => 'pelayans.index', 'adminOnly' => true],
         ['label' => 'Pelayanan', 'route' => 'pelayanans.index', 'adminOnly' => true],
+        ['label' => 'Ibadah', 'route' => 'ibadahs.index', 'adminOnly' => false],
         ['label' => 'User', 'route' => 'users.index', 'adminOnly' => true],
     ];
 @endphp
