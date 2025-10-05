@@ -45,6 +45,19 @@
                             rounded-lg px-3 py-2 focus:ring focus:ring-blue-200" required>
             </div>
 
+            <!-- Pilih Tim -->
+            <div>
+                <label for="id_tim" class="block font-medium text-gray-700 dark:text-gray-200 mb-1">
+                    Tim
+                </label>
+                <select name="id_tim" id="id_tim"
+                        class="w-full border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 
+                               rounded-lg px-3 py-2 focus:ring focus:ring-blue-200">
+                    <option value="">-- Pilih Tim --</option>
+                    {{-- Tim akan diisi via JavaScript berdasarkan ibadah yang dipilih --}}
+                </select>
+            </div>
+
             @php
                 $rolePelayanan = [
                     'id_videotron' => 'Videotron',
@@ -112,18 +125,43 @@
     }
 </style>
 
-<!-- Script filter pelayan berdasarkan ibadah -->
+<!-- Script filter tim dan pelayan berdasarkan ibadah -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const ibadahSelect = document.getElementById('id_ibadah');
+    const timSelect = document.getElementById('id_tim');
 
     ibadahSelect.addEventListener('change', function () {
         const ibadahId = this.value;
-        if (!ibadahId) return;
+        if (!ibadahId) {
+            // Reset tim dropdown
+            timSelect.innerHTML = '<option value="">-- Pilih Tim --</option>';
+            // Reset pelayan dropdowns
+            document.querySelectorAll('select[data-role]').forEach(select => {
+                select.innerHTML = '<option value="">-- Pilih Pelayan --</option>';
+            });
+            return;
+        }
 
+        // Load teams for selected ibadah
+        fetch(`/dropdown-tim/${ibadahId}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then(data => {
+                timSelect.innerHTML = '<option value="">-- Pilih Tim --</option>';
+                data.forEach(tim => {
+                    const option = document.createElement('option');
+                    option.value = tim.id;
+                    option.textContent = tim.nama_tim;
+                    timSelect.appendChild(option);
+                });
+            })
+            .catch(err => console.error('Fetch tim error:', err));
+
+        // Load pelayans for selected ibadah
         document.querySelectorAll('select[data-role]').forEach(select => {
-            const role = select.getAttribute('data-role');
-
             fetch(`/dropdown-pelayan/${ibadahId}`)
                 .then(res => {
                     if (!res.ok) throw new Error('Network response was not ok');
@@ -138,8 +176,57 @@ document.addEventListener('DOMContentLoaded', function () {
                         select.appendChild(option);
                     });
                 })
-                .catch(err => console.error('Fetch error:', err));
+                .catch(err => console.error('Fetch pelayan error:', err));
         });
+    });
+
+    // Auto-select pelayan based on selected tim
+    timSelect.addEventListener('change', function () {
+        const timId = this.value;
+        if (!timId) return;
+
+        // Get the selected tim data via AJAX
+        fetch(`/api/tim/${timId}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Network response was not ok');
+                return res.json();
+            })
+            .then(tim => {
+                // Auto-select pelayans based on tim data
+                if (tim.id_videotron) {
+                    const videotronSelect = document.getElementById('id_videotron');
+                    if (videotronSelect) videotronSelect.value = tim.id_videotron;
+                }
+                if (tim.id_live_op) {
+                    const liveOpSelect = document.getElementById('id_live_op');
+                    if (liveOpSelect) liveOpSelect.value = tim.id_live_op;
+                }
+                if (tim.id_live_cam_1) {
+                    const liveCam1Select = document.getElementById('id_live_cam_1');
+                    if (liveCam1Select) liveCam1Select.value = tim.id_live_cam_1;
+                }
+                if (tim.id_live_cam_2) {
+                    const liveCam2Select = document.getElementById('id_live_cam_2');
+                    if (liveCam2Select) liveCam2Select.value = tim.id_live_cam_2;
+                }
+                if (tim.id_live_cam_3) {
+                    const liveCam3Select = document.getElementById('id_live_cam_3');
+                    if (liveCam3Select) liveCam3Select.value = tim.id_live_cam_3;
+                }
+                if (tim.id_live_cam_4) {
+                    const liveCam4Select = document.getElementById('id_live_cam_4');
+                    if (liveCam4Select) liveCam4Select.value = tim.id_live_cam_4;
+                }
+                if (tim.id_live_cam_5) {
+                    const liveCam5Select = document.getElementById('id_live_cam_5');
+                    if (liveCam5Select) liveCam5Select.value = tim.id_live_cam_5;
+                }
+                if (tim.id_foto) {
+                    const fotoSelect = document.getElementById('id_foto');
+                    if (fotoSelect) fotoSelect.value = tim.id_foto;
+                }
+            })
+            .catch(err => console.error('Fetch tim detail error:', err));
     });
 });
 </script>

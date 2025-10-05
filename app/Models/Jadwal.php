@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Jadwal extends Model
 {
     protected $fillable = [
-        'id_ibadah','tanggal','id_videotron','id_live_op',
+        'id_ibadah','tanggal','id_tim','id_videotron','id_live_op',
         'id_live_cam_1','id_live_cam_2','id_live_cam_3',
         'id_live_cam_4','id_live_cam_5','id_foto','keterangan'
     ];
@@ -18,6 +18,10 @@ class Jadwal extends Model
 
     public function ibadah() {
         return $this->belongsTo(Ibadah::class, 'id_ibadah');
+    }
+
+    public function tim() {
+        return $this->belongsTo(Tim::class, 'id_tim');
     }
 
     public function videotron() { return $this->belongsTo(Pelayan::class, 'id_videotron'); }

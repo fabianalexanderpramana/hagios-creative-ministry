@@ -33,6 +33,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/tims', [TimController::class, 'index'])->name('tims.index');
     Route::get('/ibadahs', [IbadahController::class, 'index'])->name('ibadahs.index');
 
+    // Routes untuk dropdown (akses semua user yang login)
+    Route::get('/dropdown-pelayan/{id}', function($id) {
+        return DB::table('pelayans')
+            ->join('pelayan_to_ibadahs', 'pelayans.id', '=', 'pelayan_to_ibadahs.id_pelayan')
+            ->join('ibadahs', 'ibadahs.id', '=', 'pelayan_to_ibadahs.id_ibadah')
+            ->where('ibadahs.id', $id)
+            ->select('pelayans.*')
+            ->get();
+    });
+    Route::get('/dropdown-tim/{id}', [JadwalController::class, 'getTimsByIbadah']);
+    Route::get('/api/tim/{id}', [JadwalController::class, 'getTimDetail']);
+
     // khusus admin
     Route::middleware('admin')->group(function () {
         Route::resource('pelayans', PelayanController::class);
@@ -41,15 +53,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('jadwals', JadwalController::class)->except(['index']);
         Route::resource('tims', TimController::class)->except(['index']);
         Route::resource('users', UserController::class);
-
-        Route::get('/dropdown-pelayan/{id}', function($id) {
-            return DB::table('pelayans')
-                ->join('pelayan_to_ibadahs', 'pelayans.id', '=', 'pelayan_to_ibadahs.id_pelayan')
-                ->join('ibadahs', 'ibadahs.id', '=', 'pelayan_to_ibadahs.id_ibadah')
-                ->where('ibadahs.id', $id)
-                ->select('pelayans.*')
-                ->get();
-        });
 
         Route::get('/jadwals/export/pdf', [JadwalController::class, 'exportPdf'])->name('jadwals.export.pdf');
         Route::get('users/{id}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');

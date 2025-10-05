@@ -86,6 +86,7 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Ibadah</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Tanggal</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Tim</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Videotron</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Live OP</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Live Camera</th>
@@ -106,17 +107,22 @@
 
                             <!-- Tanggal -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
-                                {{ $jadwal->tanggal ? $jadwal->tanggal->format('d-m-Y') : '-' }}
+                                {{ $jadwal->tanggal ? $jadwal->tanggal->format('d-m-Y') : '' }}
+                            </td>
+
+                            <!-- Tim -->
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
+                                {{ $jadwal->tim->nama_tim ?? '' }}
                             </td>
 
                             <!-- Videotron -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
-                                {{ $jadwal->videotron->nama_pelayan ?? '-' }}
+                                {{ $jadwal->videotron->nama_pelayan ?? '' }}
                             </td>
 
                             <!-- Live OP -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
-                                {{ $jadwal->live_op->nama_pelayan ?? '-' }}
+                                {{ $jadwal->live_op->nama_pelayan ?? '' }}
                             </td>
 
                             <!-- Live Cam 1-5 -->
@@ -135,12 +141,12 @@
 
                             <!-- Foto -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
-                                {{ $jadwal->foto->nama_pelayan ?? '-' }}
+                                {{ $jadwal->foto->nama_pelayan ?? '' }}
                             </td>
 
                             <!-- Keterangan -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
-                                {{ $jadwal->keterangan ?? '-' }}
+                                {{ $jadwal->keterangan ?? '' }}
                             </td>
 
                             <!-- Aksi -->
@@ -166,7 +172,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="9" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
                                 Belum ada jadwal
                             </td>
                         </tr>

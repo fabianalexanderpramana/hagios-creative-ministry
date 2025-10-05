@@ -6,6 +6,7 @@ use App\Models\Jadwal;
 use App\Models\Ibadah;
 use App\Models\Pelayan;
 use App\Models\Pelayanan;
+use App\Models\Tim;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -36,7 +37,7 @@ class JadwalController extends Controller
         $tahun = session('filter_tahun', now()->year);
 
         $jadwals = Jadwal::with([
-            'ibadah','videotron','live_op','live_cam_1','live_cam_2',
+            'ibadah','tim','videotron','live_op','live_cam_1','live_cam_2',
             'live_cam_3','live_cam_4','live_cam_5','foto'
         ]);
 
@@ -60,8 +61,9 @@ class JadwalController extends Controller
         $ibadahs = Ibadah::all();
         $pelayanans = Pelayanan::all();
         $pelayans = Pelayan::with(['pelayanans', 'ibadahs'])->get();
+        $tims = Tim::all();
 
-        return view('jadwals.create', compact('ibadahs', 'pelayans', 'pelayanans'));
+        return view('jadwals.create', compact('ibadahs', 'pelayans', 'pelayanans', 'tims'));
     }
 
     public function store(Request $request)
@@ -69,6 +71,7 @@ class JadwalController extends Controller
         $request->validate([
             'id_ibadah'  => 'required|exists:ibadahs,id',
             'tanggal'    => 'required|date',
+            'id_tim'     => 'nullable|exists:tims,id',
             'keterangan' => 'nullable|max:256',
         ]);
 
@@ -83,8 +86,9 @@ class JadwalController extends Controller
         $ibadahs = Ibadah::all();
         $pelayanans = Pelayanan::all();
         $pelayans = Pelayan::with(['pelayanans', 'ibadahs'])->get();
+        $tims = Tim::all();
 
-        return view('jadwals.edit', compact('jadwal', 'ibadahs', 'pelayans', 'pelayanans'));
+        return view('jadwals.edit', compact('jadwal', 'ibadahs', 'pelayans', 'pelayanans', 'tims'));
     }
 
     public function update(Request $request, Jadwal $jadwal)
@@ -92,6 +96,7 @@ class JadwalController extends Controller
         $request->validate([
             'id_ibadah'  => 'required|exists:ibadahs,id',
             'tanggal'    => 'required|date',
+            'id_tim'     => 'nullable|exists:tims,id',
             'keterangan' => 'nullable|max:256',
         ]);
 
@@ -116,7 +121,7 @@ class JadwalController extends Controller
         $tahun = session('filter_tahun', now()->year);
 
         $jadwals = Jadwal::with([
-            'ibadah','videotron','live_op',
+            'ibadah','tim','videotron','live_op',
             'live_cam_1','live_cam_2','live_cam_3',
             'live_cam_4','live_cam_5','foto'
         ]);
@@ -142,5 +147,17 @@ class JadwalController extends Controller
         $fileName = 'HCM.' . $bulanNama . '.' . $tahun . '.pdf';
 
         return $pdf->download($fileName);
+    }
+
+    public function getTimsByIbadah($id_ibadah)
+    {
+        $tims = Tim::where('id_ibadah', $id_ibadah)->get();
+        return response()->json($tims);
+    }
+
+    public function getTimDetail($id)
+    {
+        $tim = Tim::find($id);
+        return response()->json($tim);
     }
 }
