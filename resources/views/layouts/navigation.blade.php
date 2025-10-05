@@ -2,6 +2,7 @@
     $navLinks = [
         ['label' => 'Dashboard', 'route' => 'dashboard', 'adminOnly' => false],
         ['label' => 'Jadwal', 'route' => 'jadwals.index', 'adminOnly' => false],
+        ['label' => 'Tim', 'route' => 'tims.index', 'adminOnly' => false],
         ['label' => 'Ibadah', 'route' => 'ibadahs.index', 'adminOnly' => false],
         ['label' => 'Pelayan', 'route' => 'pelayans.index', 'adminOnly' => true],
         ['label' => 'Pelayanan', 'route' => 'pelayanans.index', 'adminOnly' => true],

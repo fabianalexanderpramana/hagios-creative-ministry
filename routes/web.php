@@ -8,6 +8,7 @@ use App\Http\Controllers\PelayanController;
 use App\Http\Controllers\PelayananController;
 use App\Http\Controllers\IbadahController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\TimController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChangePasswordController;
@@ -29,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     // akses semua user
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');
+    Route::get('/tims', [TimController::class, 'index'])->name('tims.index');
     Route::get('/ibadahs', [IbadahController::class, 'index'])->name('ibadahs.index');
 
     // khusus admin
@@ -37,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pelayanans', PelayananController::class);
         Route::resource('ibadahs', IbadahController::class)->except(['index']);
         Route::resource('jadwals', JadwalController::class)->except(['index']);
+        Route::resource('tims', TimController::class)->except(['index']);
         Route::resource('users', UserController::class);
 
         Route::get('/dropdown-pelayan/{id}', function($id) {
