@@ -68,6 +68,29 @@
         </form>
     </div>
 
+    <!-- Legend Keterangan Warna -->
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow p-4 mb-4">
+        <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">Keterangan Status Presensi:</h3>
+        <div class="flex flex-wrap gap-4 text-sm">
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded-full border border-gray-300 dark:border-gray-600" style="background-color: #16A34A;"></div>
+                <span class="text-green-600 dark:text-green-400">Hadir</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded-full border border-gray-300 dark:border-gray-600" style="background-color: #2563EB;"></div>
+                <span class="text-blue-600 dark:text-blue-400">Terlambat</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded-full border border-gray-300 dark:border-gray-600" style="background-color: #DC2626;"></div>
+                <span class="text-red-600 dark:text-red-400">Tidak Hadir</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="w-4 h-4 rounded-full border border-gray-300 dark:border-gray-600" style="background-color: #6B7280;"></div>
+                <span class="text-gray-600 dark:text-gray-400">Izin</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Table Card -->
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
         <div class="overflow-x-auto">
@@ -115,7 +138,7 @@
                                         if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
                                         elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
                                         elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
-                                        elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                        elseif ($status === 'izin') $textColor = 'text-gray-600 dark:text-gray-400';
                                     @endphp
                                     <span class="font-semibold {{ $textColor }}">{{ $jadwal->videotron->nama_pelayan }}</span>
                                 @endif
@@ -131,7 +154,7 @@
                                         if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
                                         elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
                                         elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
-                                        elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                        elseif ($status === 'izin') $textColor = 'text-gray-600 dark:text-gray-400';
                                     @endphp
                                     <span class="font-semibold {{ $textColor }}">{{ $jadwal->live_op->nama_pelayan }}</span>
                                 @endif
@@ -149,7 +172,7 @@
                                             if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
                                             elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
                                             elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
-                                            elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                            elseif ($status === 'izin') $textColor = 'text-gray-600 dark:text-gray-400';
                                         @endphp
                                         <div class="flex">
                                             <span class="w-4">{{ $i }}</span>
@@ -170,7 +193,7 @@
                                         if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
                                         elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
                                         elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
-                                        elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                        elseif ($status === 'izin') $textColor = 'text-gray-600 dark:text-gray-400';
                                     @endphp
                                     <span class="font-semibold {{ $textColor }}">{{ $jadwal->foto->nama_pelayan }}</span>
                                 @endif
