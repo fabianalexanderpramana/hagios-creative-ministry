@@ -68,6 +68,7 @@
         </form>
     </div>
 
+    <!-- Table Card -->
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full border-collapse">
@@ -75,7 +76,11 @@
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Ibadah</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Tanggal</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Pelayan</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Tim</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Videotron</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Live OP</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Live Camera</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Foto</th>
                         @if(Auth::user()->isAdmin())
                             <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700 dark:text-gray-200">Aksi</th>
                         @endif
@@ -83,59 +88,107 @@
                 </thead>
                 <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                     @forelse ($jadwals as $jadwal)
-                        @php
-                            $pelayanList = [
-                                'Videotron' => $jadwal->videotron,
-                                'Live OP' => $jadwal->live_op,
-                                'Live Cam 1' => $jadwal->live_cam_1,
-                                'Live Cam 2' => $jadwal->live_cam_2,
-                                'Live Cam 3' => $jadwal->live_cam_3,
-                                'Live Cam 4' => $jadwal->live_cam_4,
-                                'Live Cam 5' => $jadwal->live_cam_5,
-                                'Fotografer' => $jadwal->foto,
-                            ];
-                        @endphp
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition">
+                            <!-- Ibadah -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
                                 <span class="font-semibold">{{ $jadwal->ibadah->nama_ibadah }}</span><br>
                                 <span class="text-sm text-gray-500 dark:text-gray-400">{{ $jadwal->ibadah->waktu }}</span>
                             </td>
+
+                            <!-- Tanggal -->
                             <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
                                 {{ $jadwal->tanggal ? $jadwal->tanggal->format('d-m-Y') : '' }}
                             </td>
-                            <td class="px-6 py-3">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                                    @foreach ($pelayanList as $label => $pelayan)
-                                        @if ($pelayan)
-                                            @php
-                                                $statusItem = optional(optional($presensiByJadwalPelayan[$jadwal->id] ?? collect())[$pelayan->id])->first();
-                                                $status = optional($statusItem)->status_kehadiran;
-                                                $textColor = 'text-gray-600 dark:text-gray-400';
-                                                if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
-                                                elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
-                                                elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
-                                                elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
-                                            @endphp
-                                            <div class="flex items-center gap-2">
-                                                <span class="text-xs text-gray-500 dark:text-gray-400 w-28">{{ $label }}</span>
-                                                <span class="font-semibold {{ $textColor }} text-sm">{{ $pelayan->nama_pelayan }}</span>
-                                            </div>
-                                        @endif
-                                    @endforeach
-                                </div>
+
+                            <!-- Tim -->
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
+                                {{ $jadwal->tim->nama_tim ?? '' }}
                             </td>
+
+                            <!-- Videotron -->
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
+                                @if ($jadwal->videotron)
+                                    @php
+                                        $statusItem = optional(optional($presensiByJadwalPelayan[$jadwal->id] ?? collect())[$jadwal->videotron->id])->first();
+                                        $status = optional($statusItem)->status_kehadiran;
+                                        $textColor = 'text-gray-600 dark:text-gray-400';
+                                        if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
+                                        elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
+                                        elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
+                                        elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                    @endphp
+                                    <span class="font-semibold {{ $textColor }}">{{ $jadwal->videotron->nama_pelayan }}</span>
+                                @endif
+                            </td>
+
+                            <!-- Live OP -->
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
+                                @if ($jadwal->live_op)
+                                    @php
+                                        $statusItem = optional(optional($presensiByJadwalPelayan[$jadwal->id] ?? collect())[$jadwal->live_op->id])->first();
+                                        $status = optional($statusItem)->status_kehadiran;
+                                        $textColor = 'text-gray-600 dark:text-gray-400';
+                                        if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
+                                        elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
+                                        elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
+                                        elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                    @endphp
+                                    <span class="font-semibold {{ $textColor }}">{{ $jadwal->live_op->nama_pelayan }}</span>
+                                @endif
+                            </td>
+
+                            <!-- Live Cam 1-5 -->
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    @php $cam = "live_cam_$i"; @endphp
+                                    @if ($jadwal->$cam)
+                                        @php
+                                            $statusItem = optional(optional($presensiByJadwalPelayan[$jadwal->id] ?? collect())[$jadwal->$cam->id])->first();
+                                            $status = optional($statusItem)->status_kehadiran;
+                                            $textColor = 'text-gray-600 dark:text-gray-400';
+                                            if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
+                                            elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
+                                            elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
+                                            elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                        @endphp
+                                        <div class="flex">
+                                            <span class="w-4">{{ $i }}</span>
+                                            <span class="mx-1">:&nbsp;&nbsp;</span>
+                                            <span class="font-semibold {{ $textColor }}">{{ $jadwal->$cam->nama_pelayan }}</span>
+                                        </div>
+                                    @endif
+                                @endfor
+                            </td>
+
+                            <!-- Foto -->
+                            <td class="px-6 py-3 text-gray-800 dark:text-gray-100">
+                                @if ($jadwal->foto)
+                                    @php
+                                        $statusItem = optional(optional($presensiByJadwalPelayan[$jadwal->id] ?? collect())[$jadwal->foto->id])->first();
+                                        $status = optional($statusItem)->status_kehadiran;
+                                        $textColor = 'text-gray-600 dark:text-gray-400';
+                                        if ($status === 'hadir') $textColor = 'text-green-600 dark:text-green-400';
+                                        elseif ($status === 'terlambat') $textColor = 'text-blue-600 dark:text-blue-400';
+                                        elseif ($status === 'tidak hadir') $textColor = 'text-red-600 dark:text-red-400';
+                                        elseif ($status === 'izin') $textColor = 'text-gray-500 dark:text-gray-400';
+                                    @endphp
+                                    <span class="font-semibold {{ $textColor }}">{{ $jadwal->foto->nama_pelayan }}</span>
+                                @endif
+                            </td>
+
+                            <!-- Aksi -->
                             @if(Auth::user()->isAdmin())
                             <td class="px-6 py-3 text-center">
                                 <a href="{{ route('presensis.edit', $jadwal->id) }}" 
                                 class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded-lg text-sm shadow transition">
-                                Edit
+                                    Edit
                                 </a>
                             </td>
                             @endif
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="4" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="8" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
                                 Belum ada presensi
                             </td>
                         </tr>

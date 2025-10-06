@@ -4,7 +4,7 @@
         // Ordered: Jadwal, Tim, Presensi, Pelayan, Pelayanan, Ibadah, User
         ['label' => 'Jadwal', 'route' => 'jadwals.index', 'adminOnly' => false],
         ['label' => 'Tim', 'route' => 'tims.index', 'adminOnly' => false],
-        ['label' => 'Presensi', 'route' => 'presensis.index', 'adminOnly' => false],
+        ['label' => 'Presensi', 'route' => 'presensis.index', 'adminOnly' => true],
         ['label' => 'Pelayan', 'route' => 'pelayans.index', 'adminOnly' => true],
         ['label' => 'Pelayanan', 'route' => 'pelayanans.index', 'adminOnly' => true],
         ['label' => 'Ibadah', 'route' => 'ibadahs.index', 'adminOnly' => false],
