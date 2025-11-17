@@ -9,7 +9,7 @@
         <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
             Daftar Jadwal
         </h1>
-        @if(auth()->user()->role === 'ADMIN')
+        @if(auth()->check() && auth()->user()->role === 'ADMIN')
         <a href="{{ route('jadwals.create') }}" 
            class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow transition">
            + Tambah Jadwal
@@ -68,7 +68,7 @@
                     class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Reset
                 </a>
-                @if(Auth::user()->isAdmin())
+                @if(auth()->check() && Auth::user()->isAdmin())
                 <a href="{{ route('jadwals.export.pdf', request()->query()) }}"
                     class="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-md text-sm shadow transition">
                     Export PDF
@@ -92,7 +92,7 @@
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Live Camera</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Foto</th>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-700 dark:text-gray-200">Keterangan</th>
-                        @if(Auth::user()->isAdmin())
+                        @if(auth()->check() && Auth::user()->isAdmin())
                             <th class="px-6 py-3 text-center text-sm font-semibold text-gray-700 dark:text-gray-200">Aksi</th>
                         @endif
                     </tr>
@@ -150,7 +150,7 @@
                             </td>
 
                             <!-- Aksi -->
-                            @if(Auth::user()->isAdmin())
+                            @if(auth()->check() && Auth::user()->isAdmin())
                             <td class="px-6 py-3 text-center">
                                 <div class="flex justify-center gap-2">
                                     <a href="{{ route('jadwals.edit', $jadwal->id) }}" 
@@ -172,7 +172,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="9" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="{{ auth()->check() && Auth::user()->isAdmin() ? '9' : '8' }}" class="px-6 py-6 text-center text-gray-500 dark:text-gray-400">
                                 Belum ada jadwal
                             </td>
                         </tr>

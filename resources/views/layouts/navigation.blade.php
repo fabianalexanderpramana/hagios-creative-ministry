@@ -55,8 +55,26 @@
             </div>
 
             @guest
+            <!-- Desktop Menu for Guest -->
+            <div class="hidden sm:flex sm:items-center sm:space-x-8 sm:ms-10">
+                <a href="{{ route('jadwals.index') }}"
+                   class="px-3 py-2 rounded-md text-sm font-medium
+                          {{ request()->routeIs('jadwals.index*') 
+                              ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white' 
+                              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-700 dark:hover:text-gray-300' }}">
+                    {{ __('Jadwal') }}
+                </a>
+                <a href="{{ route('login') }}"
+                   class="px-3 py-2 rounded-md text-sm font-medium
+                          {{ request()->routeIs('login') 
+                              ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white' 
+                              : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-700 dark:hover:text-gray-300' }}">
+                    {{ __('Login') }}
+                </a>
+            </div>
+
             <!-- Theme Toggle - Only visible when not authenticated -->
-            <div class="flex items-center">
+            <div class="hidden sm:flex sm:items-center">
                 <button @click="toggleTheme()" class="p-2 rounded-md text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 transition duration-150 ease-in-out">
                     <!-- Sun icon for light mode -->
                     <svg x-show="!darkMode" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
@@ -65,6 +83,16 @@
                     <!-- Moon icon for dark mode -->
                     <svg x-show="darkMode" class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Hamburger for Guest -->
+            <div class="-me-2 flex items-center sm:hidden">
+                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
+                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -156,6 +184,26 @@
                 <span x-text="darkMode ? 'Mode Gelap' : 'Mode Terang'"></span>
             </button>
         </div>
+
+        @guest
+        <!-- Guest Mobile Menu -->
+        <div class="pt-2 pb-3 space-y-1">
+            <a href="{{ route('jadwals.index') }}"
+               class="block px-3 py-2 rounded-md text-base font-medium
+                      {{ request()->routeIs('jadwals.index*') 
+                          ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white' 
+                          : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-700 dark:hover:text-gray-300' }}">
+                {{ __('Jadwal') }}
+            </a>
+            <a href="{{ route('login') }}"
+               class="block px-3 py-2 rounded-md text-base font-medium
+                      {{ request()->routeIs('login') 
+                          ? 'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white' 
+                          : 'text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-gray-700 dark:hover:text-gray-300' }}">
+                {{ __('Login') }}
+            </a>
+        </div>
+        @endguest
 
         @auth
         <div class="pt-2 pb-3 space-y-1">

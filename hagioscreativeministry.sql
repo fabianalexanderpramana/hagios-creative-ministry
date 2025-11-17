@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 03, 2025 at 02:43 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Generation Time: Oct 06, 2025 at 08:32 AM
+-- Server version: 10.11.14-MariaDB-cll-lve
+-- PHP Version: 8.4.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hagioscreativeministry`
+-- Database: `hage7191_hagioscreativeministry`
 --
 
 -- --------------------------------------------------------
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -40,9 +40,9 @@ CREATE TABLE `cache` (
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -52,13 +52,13 @@ CREATE TABLE `cache_locks` (
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -68,9 +68,9 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `ibadahs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `nama_ibadah` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `waktu` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_ibadah` varchar(64) NOT NULL,
+  `waktu` varchar(128) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -96,38 +96,48 @@ INSERT INTO `ibadahs` (`id`, `nama_ibadah`, `waktu`, `created_at`, `updated_at`)
 --
 
 CREATE TABLE `jadwals` (
-  `id` bigint UNSIGNED NOT NULL,
-  `id_ibadah` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_ibadah` bigint(20) UNSIGNED NOT NULL,
   `tanggal` date DEFAULT NULL,
-  `id_videotron` bigint UNSIGNED DEFAULT NULL,
-  `id_live_op` bigint UNSIGNED DEFAULT NULL,
-  `id_live_cam_1` bigint UNSIGNED DEFAULT NULL,
-  `id_live_cam_2` bigint UNSIGNED DEFAULT NULL,
-  `id_live_cam_3` bigint UNSIGNED DEFAULT NULL,
-  `id_live_cam_4` bigint UNSIGNED DEFAULT NULL,
-  `id_live_cam_5` bigint UNSIGNED DEFAULT NULL,
-  `id_foto` bigint UNSIGNED DEFAULT NULL,
-  `keterangan` varchar(256) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_videotron` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_op` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_1` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_2` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_3` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_4` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_5` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_foto` bigint(20) UNSIGNED DEFAULT NULL,
+  `keterangan` varchar(256) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `id_tim` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `jadwals`
 --
 
-INSERT INTO `jadwals` (`id`, `id_ibadah`, `tanggal`, `id_videotron`, `id_live_op`, `id_live_cam_1`, `id_live_cam_2`, `id_live_cam_3`, `id_live_cam_4`, `id_live_cam_5`, `id_foto`, `keterangan`, `created_at`, `updated_at`) VALUES
-(1, 1, '2025-10-05', 11, 14, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-09-24 20:05:53', '2025-09-30 10:56:44'),
-(2, 2, '2025-10-05', 5, 22, NULL, 16, 20, 9, 12, 18, NULL, '2025-09-24 20:59:30', '2025-09-30 10:57:43'),
-(3, 3, '2025-10-05', 26, 13, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-09-30 10:58:59', '2025-09-30 10:58:59'),
-(4, 5, '2025-10-01', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-09-30 11:00:25', '2025-09-30 11:00:25'),
-(5, 8, '2025-10-02', 11, 6, NULL, NULL, NULL, NULL, NULL, 18, NULL, '2025-09-30 11:00:43', '2025-09-30 11:00:43'),
-(6, 4, '2025-10-07', 8, 12, NULL, NULL, NULL, NULL, NULL, 16, NULL, '2025-10-01 23:32:30', '2025-10-01 23:32:30'),
-(7, 6, '2025-10-14', 11, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:33:07', '2025-10-01 23:33:07'),
-(8, 5, '2025-10-15', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:33:48', '2025-10-01 23:33:48'),
-(9, 7, '2025-10-17', 28, 14, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:34:27', '2025-10-01 23:34:27'),
-(10, 4, '2025-10-21', 11, 9, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-01 23:34:57', '2025-10-01 23:34:57'),
-(11, 5, '2025-10-29', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:35:18', '2025-10-01 23:35:18');
+INSERT INTO `jadwals` (`id`, `id_ibadah`, `tanggal`, `id_videotron`, `id_live_op`, `id_live_cam_1`, `id_live_cam_2`, `id_live_cam_3`, `id_live_cam_4`, `id_live_cam_5`, `id_foto`, `keterangan`, `created_at`, `updated_at`, `id_tim`) VALUES
+(1, 1, '2025-10-05', 11, 14, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-09-24 20:05:53', '2025-09-30 10:56:44', NULL),
+(2, 2, '2025-10-05', 5, 22, NULL, 16, 20, 9, 12, 18, NULL, '2025-09-24 20:59:30', '2025-09-30 10:57:43', NULL),
+(3, 3, '2025-10-05', 26, 13, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-09-30 10:58:59', '2025-09-30 10:58:59', NULL),
+(4, 5, '2025-10-01', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-09-30 11:00:25', '2025-09-30 11:00:25', NULL),
+(5, 8, '2025-10-02', 11, 6, NULL, NULL, NULL, NULL, NULL, 18, NULL, '2025-09-30 11:00:43', '2025-09-30 11:00:43', NULL),
+(6, 4, '2025-10-07', 8, 12, NULL, NULL, NULL, NULL, NULL, 16, NULL, '2025-10-01 23:32:30', '2025-10-01 23:32:30', NULL),
+(7, 6, '2025-10-14', 11, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:33:07', '2025-10-01 23:33:07', NULL),
+(8, 5, '2025-10-15', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:33:48', '2025-10-01 23:33:48', NULL),
+(9, 7, '2025-10-17', 28, 14, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:34:27', '2025-10-01 23:34:27', NULL),
+(10, 4, '2025-10-21', 11, 9, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-01 23:34:57', '2025-10-01 23:34:57', NULL),
+(11, 5, '2025-10-29', 28, 9, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-01 23:35:18', '2025-10-01 23:35:18', NULL),
+(15, 1, '2025-10-12', 26, 5, NULL, NULL, NULL, NULL, NULL, 23, NULL, '2025-10-02 20:07:19', '2025-10-02 20:07:19', NULL),
+(16, 2, '2025-10-12', 8, 10, NULL, 19, 15, 27, 24, 17, NULL, '2025-10-02 20:08:21', '2025-10-02 20:08:21', NULL),
+(17, 3, '2025-10-12', 25, 28, NULL, NULL, NULL, NULL, NULL, 6, NULL, '2025-10-02 20:09:11', '2025-10-02 20:09:11', NULL),
+(18, 1, '2025-10-19', 25, 12, NULL, NULL, NULL, NULL, NULL, 21, NULL, '2025-10-02 20:09:59', '2025-10-02 20:09:59', NULL),
+(19, 2, '2025-10-19', 20, 22, NULL, 16, 25, 9, 18, 28, NULL, '2025-10-02 20:12:51', '2025-10-02 20:12:51', NULL),
+(20, 3, '2025-10-19', 29, 13, NULL, NULL, NULL, NULL, NULL, 26, NULL, '2025-10-02 20:17:43', '2025-10-02 20:17:43', NULL),
+(21, 1, '2025-10-26', 11, 9, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-02 20:18:10', '2025-10-02 20:18:10', NULL),
+(22, 2, '2025-10-26', 10, 14, NULL, 19, 15, 20, 12, 17, NULL, '2025-10-02 20:19:04', '2025-10-02 20:19:04', NULL),
+(23, 3, '2025-10-26', 25, 6, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-02 20:19:43', '2025-10-02 20:19:43', NULL);
 
 -- --------------------------------------------------------
 
@@ -136,13 +146,13 @@ INSERT INTO `jadwals` (`id`, `id_ibadah`, `tanggal`, `id_videotron`, `id_live_op
 --
 
 CREATE TABLE `jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `queue` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attempts` tinyint UNSIGNED NOT NULL,
-  `reserved_at` int UNSIGNED DEFAULT NULL,
-  `available_at` int UNSIGNED NOT NULL,
-  `created_at` int UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -152,16 +162,16 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_jobs` int NOT NULL,
-  `pending_jobs` int NOT NULL,
-  `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext COLLATE utf8mb4_unicode_ci,
-  `cancelled_at` int DEFAULT NULL,
-  `created_at` int NOT NULL,
-  `finished_at` int DEFAULT NULL
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -171,9 +181,9 @@ CREATE TABLE `job_batches` (
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -196,7 +206,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2025_09_25_031020_add_tanggal_to_jadwals_table', 4),
 (15, '2025_10_02_064832_add_pelayan_id_to_users_table', 5),
 (16, '2025_10_02_070222_add_role_to_users_table', 5),
-(17, '2025_10_02_073923_add_email_to_users_table', 6);
+(17, '2025_10_02_073923_add_email_to_users_table', 6),
+(18, '2025_10_05_033519_create_tims_table', 7),
+(19, '2025_10_05_103711_add_id_tim_to_jadwals_table', 8);
 
 -- --------------------------------------------------------
 
@@ -205,8 +217,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -224,8 +236,8 @@ INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
 --
 
 CREATE TABLE `pelayanans` (
-  `id` bigint UNSIGNED NOT NULL,
-  `nama_pelayanan` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_pelayanan` varchar(64) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -247,8 +259,8 @@ INSERT INTO `pelayanans` (`id`, `nama_pelayanan`, `created_at`, `updated_at`) VA
 --
 
 CREATE TABLE `pelayans` (
-  `id` bigint UNSIGNED NOT NULL,
-  `nama_pelayan` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_pelayan` varchar(64) NOT NULL,
   `tgl_lahir` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -283,7 +295,8 @@ INSERT INTO `pelayans` (`id`, `nama_pelayan`, `tgl_lahir`, `created_at`, `update
 (25, 'Ezra', NULL, '2025-09-30 10:49:48', '2025-09-30 10:49:48'),
 (26, 'Yona', '1991-04-20', '2025-09-30 10:52:05', '2025-09-30 10:52:05'),
 (27, 'Yusuf P', '2002-03-10', '2025-09-30 10:52:50', '2025-09-30 10:52:50'),
-(28, 'Yusuf S', NULL, '2025-09-30 10:53:30', '2025-09-30 10:53:30');
+(28, 'Yusuf S', NULL, '2025-09-30 10:53:30', '2025-09-30 10:53:30'),
+(29, 'Joshua S', '2004-11-04', '2025-10-02 20:16:35', '2025-10-02 20:16:35');
 
 -- --------------------------------------------------------
 
@@ -292,9 +305,9 @@ INSERT INTO `pelayans` (`id`, `nama_pelayan`, `tgl_lahir`, `created_at`, `update
 --
 
 CREATE TABLE `pelayan_to_ibadahs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `id_pelayan` bigint UNSIGNED NOT NULL,
-  `id_ibadah` bigint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_pelayan` bigint(20) UNSIGNED NOT NULL,
+  `id_ibadah` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -394,7 +407,10 @@ INSERT INTO `pelayan_to_ibadahs` (`id`, `id_pelayan`, `id_ibadah`) VALUES
 (102, 28, 5),
 (103, 28, 6),
 (104, 28, 7),
-(105, 28, 8);
+(105, 28, 8),
+(106, 25, 2),
+(107, 29, 3),
+(108, 29, 8);
 
 -- --------------------------------------------------------
 
@@ -403,9 +419,9 @@ INSERT INTO `pelayan_to_ibadahs` (`id`, `id_pelayan`, `id_ibadah`) VALUES
 --
 
 CREATE TABLE `pelayan_to_pelayanans` (
-  `id` bigint UNSIGNED NOT NULL,
-  `id_pelayan` bigint UNSIGNED NOT NULL,
-  `id_pelayanan` bigint UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_pelayan` bigint(20) UNSIGNED NOT NULL,
+  `id_pelayanan` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -464,7 +480,39 @@ INSERT INTO `pelayan_to_pelayanans` (`id`, `id_pelayan`, `id_pelayanan`) VALUES
 (54, 28, 1),
 (55, 28, 2),
 (56, 28, 4),
-(57, 5, 2);
+(57, 5, 2),
+(58, 29, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `presensis`
+--
+
+CREATE TABLE `presensis` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_pelayan` bigint(20) UNSIGNED NOT NULL,
+  `id_jadwal` bigint(20) UNSIGNED NOT NULL,
+  `status_kehadiran` enum('hadir','terlambat','izin','tidak hadir') NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `presensis`
+--
+
+INSERT INTO `presensis` (`id`, `id_pelayan`, `id_jadwal`, `status_kehadiran`, `created_at`, `updated_at`) VALUES
+(1, 11, 1, 'hadir', '2025-10-05 09:00:32', '2025-10-05 09:11:08'),
+(2, 14, 1, 'hadir', '2025-10-05 09:00:32', '2025-10-05 09:33:52'),
+(3, 28, 1, 'hadir', '2025-10-05 09:00:32', '2025-10-05 09:00:32'),
+(4, 5, 2, 'hadir', '2025-10-05 09:15:17', '2025-10-05 10:27:51'),
+(5, 22, 2, 'hadir', '2025-10-05 09:15:17', '2025-10-05 09:15:17'),
+(6, 16, 2, 'hadir', '2025-10-05 09:15:17', '2025-10-05 09:15:17'),
+(7, 20, 2, 'terlambat', '2025-10-05 09:15:17', '2025-10-05 10:28:21'),
+(8, 9, 2, 'hadir', '2025-10-05 09:15:17', '2025-10-05 09:15:17'),
+(9, 12, 2, 'hadir', '2025-10-05 09:15:17', '2025-10-05 09:15:17'),
+(10, 18, 2, 'hadir', '2025-10-05 09:15:17', '2025-10-05 09:15:17');
 
 -- --------------------------------------------------------
 
@@ -473,12 +521,12 @@ INSERT INTO `pelayan_to_pelayanans` (`id`, `id_pelayan`, `id_pelayanan`) VALUES
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text COLLATE utf8mb4_unicode_ci,
-  `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int NOT NULL
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -486,7 +534,62 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('EmOSWIhFxGQSqTBmwdW5ZZXx84LoJ7nqxagmZMbX', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVXZkYjBkVER4Wk1RUXZ3MDU3ZXh3ZkhHMGJ3TlJuek5STUNxcm9XSyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1759421004);
+('5Q0cqFVx3gVgEqCa4AHbTqds3SfErOsIx0DHZrWl', NULL, '49.0.237.214', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5; iPhone) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.3628.24 Safari/537.36 HuaweiCrawler', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUVpPYVR1U0ExUjBwZTdoYWtWSW9ZcU00TXpEa1F6NHNZRjNiMGxSdCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDc6Imh0dHBzOi8vbWFpbC5oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759686493),
+('7P5kmgUlJmnac6XAvtkzCwRQOQ6FLe0SATKTB4Kd', NULL, '49.0.237.214', 'Java/1.8.0_322', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiOUZHOWxLMHg5bG1OZHp6TjdvMVdjVjJ5NHQzQkRyOURDR1J6S0gxUiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759686493),
+('8sUgTvQ9d6WEC8RZLiWXVsRZyrbl4uxitU2lmfC0', NULL, '2001:470:1:fb5:74e5:2055:3a7d:3758', 'Mozilla/5.0 (iPad; CPU OS 15_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.6,2 Mobile/15E148 Safari/604.1', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRkdEMHRrV05WWnQ2VWVSc1dZUFczU0t2RXpxSENUZU5JSmxRenUwaCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHBzOi8vWzIwMDE6ZGYwOjI3YjoyOjo3OjQzZDddIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759711194),
+('b4StDXuwMqGWER5ZM51Tl1RBF2YdS5DQjLjmk2sV', 1, '182.253.55.67', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYzBQcnMzdXlCOUo4QndmaHBsYUYyRzJBa0VCdlNiRVJaaWZuVlpqTyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDY6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1759685104),
+('bp9uQW9WDI8IsYMGzeNrxETNzsFsdQArZmzS2ESt', NULL, '49.0.237.214', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5; iPhone) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.3628.24 Safari/537.36 HuaweiCrawler', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVmNZNzdidmFtNkdZb3RIR0xwRTZxekV1dUp6aFJubGdwYXYzdVUzUSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo1MToiaHR0cHM6Ly9tYWlsLmhhZ2lvc2NyZWF0aXZlbWluaXN0cnkubXkuaWQvZGFzaGJvYXJkIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHBzOi8vbWFpbC5oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2Rhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1759686493),
+('CH4YawagFgX38qNNrjf3f2Y0iPzB4yjqEJb183JO', 1, '2404:c0:5c10::494:3990', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Mobile Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiZzlZZHlyUTdQdjFKazFTem1hN1l5NlpoNmZzVEdkUlJwN2FPVFZSdyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDQ6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZC9qYWR3YWxzIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1759714295),
+('DY6UAXxwhWoKqyZX0lIxS5jIYKMNb0NPHaR8oxrD', NULL, '202.170.91.69', 'Java/1.8.0_322', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibm5nZ0FLdjdNZnRMZnMwWVExUXZEYW5jNDFMNGVsTDIwVmZWUTd4cyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MToiaHR0cHM6Ly9tYWlsLmhhZ2lvc2NyZWF0aXZlbWluaXN0cnkubXkuaWQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1759686493),
+('Dz245nu8JGp7uZoyt9hb0Go1ATuyCAij85Q1XbjO', NULL, '103.247.9.9', '', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieG5mN3dTVmtoOTlvZjdYVWV4elBod2h6dDJNYkUwVEg4VHA3QVlTMyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759705581),
+('ePax501rKAiHbQsXyoAW9QmMX6iTSt1SQIRuxMmH', NULL, '100.25.181.12', 'Mozilla/5.0 (X11; U; Linux x86_64; en-US; rv:1.9.1.5) Gecko/20091107 Firefox/3.5.5', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQVd2V0lhOGZycWg5UVA2ak5xRWFFaEpyOHZuR1JYREtIdjRGVWtRNiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzU6Imh0dHA6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759696156),
+('HDldNlGXWTbF9s2zB2DnhJiJvnjzYOW9hMCx8OFe', NULL, '2a06:4882:d000::e7', 'Mozilla/5.0 (compatible; InternetMeasurement/1.0; +https://internet-measurement.com/)', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUFQyOUFsQ1FhMGRnSlpFQnFiZHBmZnJiUk9BY2ptVEh3aWVacGNNWiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHBzOi8vWzIwMDE6ZGYwOjI3YjoyOjo3OjQzZDddIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759713437),
+('HsgSGvN5bQCSa3vNTp6Rgj1WXAbRTTJ8NkZBsGad', 1, '2404:c0:5c10::484:c216', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiM0FqYXJ6RHBSSDQ2cWsyelhiV0lOMGdsUFRMS2tza2FNeGJOeW9CaiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQxOiJodHRwczovL2hhZ2lvc2NyZWF0aXZlbWluaXN0cnkubXkuaWQvdGltcyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1759714223),
+('jRJo6mfBC7dkKZzsSL8UnrlibqcexKvZdFJa3mOb', NULL, '2a06:4882:d000::f6', '', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoid3hYeERjRUVXWE5JY1FZd0dTVGdGaHdHdDRFQ2Fab21zUGtac1pSQiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1759713453),
+('jU7tAq0VPuZyZze1rfwyPyZchgubeZgEat7wGPY8', NULL, '100.25.181.12', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNzVLdFBjUmRmVjU5M0pOQmNyd3cySTNVaEdLRWtscjVNalZ0bkJlOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759696156),
+('K06RC9oZQb7pxkWerdR0LNxtHAjtQloKqwT7mUWt', NULL, '49.0.237.214', 'Java/1.8.0_322', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiY1R1OHpQb2tUNnU0ZG9kRUYydXFGSlVLcUhYQjZUbE56UlU5UW5PVSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759686493),
+('kH4ZuYMdTBZWXF83Gie437XPuSvaZSlJweb1IG5Q', NULL, '49.0.237.214', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5; iPhone) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.3628.24 Safari/537.36 HuaweiCrawler', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWTVFdWNxcGNiaGdDQ2kyeGxXbmlqdkpyS2ZQU0JUR3dKSEhHdGN6RyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHBzOi8vbWFpbC5oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759686493),
+('ocmrlHk482dj0KVunnuVaHrnLAgYIn0EjeHpR6M4', NULL, '100.25.181.12', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/32.0.1664.3 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiU1Jjcm1sRm9kUDFnRm5pY2FTYlpYOGJxRUFuUE03eU1qczd0eDk4MCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1759696156),
+('QUs15QCw8EcF8taJTUZfaayTp0s0qtF0ZRPctdux', NULL, '100.25.181.12', 'BlackBerry7520/4.0.0 Profile/MIDP-2.0 Configuration/CLDC-1.1 UP.Browser/5.0.3.3 UP.Link/5.1.2.12 (Google WAP Proxy/1.0)', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSjBHbkw1Y2l1aGM4cG5YQzhIOVQ4VWw1RktYVFU0TVJhcmlRSm1SRSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1759696156),
+('r0BrpregB9xFyoUO3hOnWx13gcQxQdWs8NLCGTB4', NULL, '103.247.9.9', '', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiczdrSTdPaUFxNzdacDdEeFFuNkdyZnZlVlBLZmwyTUhRUUlSSHdFOCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDE6Imh0dHA6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2xvZ2luIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759705581),
+('soiBQHg3C7qp3YrEbj4ljug1GkCgOQzmOL4b2wNi', NULL, '103.247.9.9', '', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoialg1R3BCZ1pobm0zN0ZIenB1Zm11aWNjVkQ5SEd6d3RkTlVJNzBTViI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NToiaHR0cDovL2hhZ2lvc2NyZWF0aXZlbWluaXN0cnkubXkuaWQvZGFzaGJvYXJkIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2Rhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1759705581),
+('sq0ODU6bdQgK5Tja3qDFEWai2cQkZwgHMxqw5fJj', NULL, '100.25.181.12', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_0) AppleWebKit/536.3 (KHTML, like Gecko) Chrome/19.0.1063.0 Safari/536.3', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidTBPRFVEdWZTenNEZmh4aDljOWRrMXh0andnZzhka0dBallGQzhyMyI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NToiaHR0cDovL2hhZ2lvc2NyZWF0aXZlbWluaXN0cnkubXkuaWQvZGFzaGJvYXJkIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDU6Imh0dHA6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2Rhc2hib2FyZCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1759696156),
+('VBD8mTVWKsQj0VsBSjGkwvcyrX2SDjhJUUWG9GVp', 3, '2a09:bac1:3480:628::3c2:22', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiczdnTjFNRUtCcTRja2FYY21ES3l2R0hQTGNndUoxRmVOQU11bDJPTCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NTE6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZC9qYWR3YWxzL2NyZWF0ZSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjM7fQ==', 1759685468),
+('xSNSI2WH2EJ74DrdxgMUvSTNwom6dcuojAmIWDDg', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36 Edg/141.0.0.0', 'YTo4OntzOjY6Il90b2tlbiI7czo0MDoieWdTdkhnVFNPc3dLYlJaOWQyZlI3ZVd2bVlXRVFkOUhFS1JWWjlFbCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvamFkd2FscyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoxNjoiZmlsdGVyX2lkX2liYWRhaCI7TjtzOjEyOiJmaWx0ZXJfYnVsYW4iO3M6MjoiMTAiO3M6MTI6ImZpbHRlcl90YWh1biI7czo0OiIyMDI1Ijt9', 1759665950),
+('yvMp0yQIya8gTv4aP1740BH9RHDQCAFhC7citzmQ', NULL, '210.64.24.100', 'Python/3.13 aiohttp/3.12.13', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiOHNQTHZtcWNsZjZiYWY3cGxIZXk5ejVBZVFvY2Myc1R6OUFxV0o3ZyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MzoidXJsIjthOjE6e3M6ODoiaW50ZW5kZWQiO3M6NDY6Imh0dHBzOi8vaGFnaW9zY3JlYXRpdmVtaW5pc3RyeS5teS5pZC9kYXNoYm9hcmQiO319', 1759694877),
+('Zk8Mmu0eE3A7eL4h9pxtyI2F30OHnS7g7idl133o', NULL, '100.25.181.12', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.54 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiT3lycTI5S2tHTTNnWWxRWDJ2cFlIYUNQVERXYVlNNk03bEhYSFh2RiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0NjoiaHR0cHM6Ly9oYWdpb3NjcmVhdGl2ZW1pbmlzdHJ5Lm15LmlkL2Rhc2hib2FyZCI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ2OiJodHRwczovL2hhZ2lvc2NyZWF0aXZlbWluaXN0cnkubXkuaWQvZGFzaGJvYXJkIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1759696156);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tims`
+--
+
+CREATE TABLE `tims` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_tim` varchar(16) NOT NULL,
+  `id_ibadah` bigint(20) UNSIGNED NOT NULL,
+  `id_videotron` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_op` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_1` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_2` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_3` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_4` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_live_cam_5` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_foto` bigint(20) UNSIGNED DEFAULT NULL,
+  `keterangan` varchar(256) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tims`
+--
+
+INSERT INTO `tims` (`id`, `nama_tim`, `id_ibadah`, `id_videotron`, `id_live_op`, `id_live_cam_1`, `id_live_cam_2`, `id_live_cam_3`, `id_live_cam_4`, `id_live_cam_5`, `id_foto`, `keterangan`, `created_at`, `updated_at`) VALUES
+(1, '1-1A', 1, 11, 6, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-05 03:09:55', '2025-10-05 03:14:01'),
+(2, '1-2A', 2, 5, 22, NULL, 16, 20, 9, 12, 18, NULL, '2025-10-05 03:13:03', '2025-10-05 03:13:03'),
+(3, '1-3A', 3, 26, 13, NULL, NULL, NULL, NULL, NULL, 28, NULL, '2025-10-05 03:13:50', '2025-10-05 03:13:50');
 
 -- --------------------------------------------------------
 
@@ -495,15 +598,15 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `pelayan_id` bigint UNSIGNED DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `pelayan_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `role` enum('ADMIN','PELAYAN') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PELAYAN',
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `role` enum('ADMIN','PELAYAN') NOT NULL DEFAULT 'PELAYAN',
+  `email` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -511,8 +614,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `pelayan_id`, `username`, `password`, `remember_token`, `created_at`, `updated_at`, `role`, `email`) VALUES
-(1, 1, 'adminhcm', '$2y$12$Jdb3fsS0QG3nxWcS/hzgwuKFRhcaYkeEsdlaeKJc4vpvc1WM0.b8K', NULL, '2025-09-16 07:47:19', '2025-10-02 00:41:30', 'ADMIN', 'test@gmail.com'),
-(2, 4, 'fabianalexanderrr', '$2y$12$uUNPnlWt/9nWtefjANw24OaNQwSwjaA4uZFWkQ8YlHWtMWBhuNoeK', NULL, '2025-10-02 00:45:12', '2025-10-02 03:10:50', 'PELAYAN', 'fabian.alexander.pramana@gmail.com');
+(1, 1, 'adminhcm', '$2y$12$Jdb3fsS0QG3nxWcS/hzgwuKFRhcaYkeEsdlaeKJc4vpvc1WM0.b8K', NULL, '2025-09-16 07:47:19', '2025-10-02 19:46:38', 'ADMIN', 'hagioscreativeministry@gmail.com'),
+(2, 4, 'fabianalexanderrr', '$2y$12$uUNPnlWt/9nWtefjANw24OaNQwSwjaA4uZFWkQ8YlHWtMWBhuNoeK', NULL, '2025-10-02 00:45:12', '2025-10-02 19:46:44', 'ADMIN', 'fabian.alexander.pramana@gmail.com'),
+(3, 5, 'rahelasnk', '$2y$12$a3G.QfxKDo5O.6blBtt07OMkXANxwhoFsEbcPlsLwL.s9HgWnmwP2', 'Thm8B1TV0mMXamqtqlkJ33Bi0avcy5znZ1iAdAO57L5XnmbGFbSlCb2XRnFs', '2025-10-02 19:54:07', '2025-10-02 20:01:33', 'ADMIN', 'rahelasenka@gmail.com');
 
 --
 -- Indexes for dumped tables
@@ -556,7 +660,8 @@ ALTER TABLE `jadwals`
   ADD KEY `jadwals_id_live_cam_3_foreign` (`id_live_cam_3`),
   ADD KEY `jadwals_id_live_cam_4_foreign` (`id_live_cam_4`),
   ADD KEY `jadwals_id_live_cam_5_foreign` (`id_live_cam_5`),
-  ADD KEY `jadwals_id_foto_foreign` (`id_foto`);
+  ADD KEY `jadwals_id_foto_foreign` (`id_foto`),
+  ADD KEY `jadwals_id_tim_foreign` (`id_tim`);
 
 --
 -- Indexes for table `jobs`
@@ -612,12 +717,35 @@ ALTER TABLE `pelayan_to_pelayanans`
   ADD KEY `pelayan_to_pelayanans_id_pelayanan_foreign` (`id_pelayanan`);
 
 --
+-- Indexes for table `presensis`
+--
+ALTER TABLE `presensis`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `presensis_id_pelayan_id_jadwal_unique` (`id_pelayan`,`id_jadwal`),
+  ADD KEY `presensis_id_jadwal_foreign` (`id_jadwal`);
+
+--
 -- Indexes for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `sessions_user_id_index` (`user_id`),
   ADD KEY `sessions_last_activity_index` (`last_activity`);
+
+--
+-- Indexes for table `tims`
+--
+ALTER TABLE `tims`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tims_id_ibadah_foreign` (`id_ibadah`),
+  ADD KEY `tims_id_videotron_foreign` (`id_videotron`),
+  ADD KEY `tims_id_live_op_foreign` (`id_live_op`),
+  ADD KEY `tims_id_live_cam_1_foreign` (`id_live_cam_1`),
+  ADD KEY `tims_id_live_cam_2_foreign` (`id_live_cam_2`),
+  ADD KEY `tims_id_live_cam_3_foreign` (`id_live_cam_3`),
+  ADD KEY `tims_id_live_cam_4_foreign` (`id_live_cam_4`),
+  ADD KEY `tims_id_live_cam_5_foreign` (`id_live_cam_5`),
+  ADD KEY `tims_id_foto_foreign` (`id_foto`);
 
 --
 -- Indexes for table `users`
@@ -636,61 +764,73 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `ibadahs`
 --
 ALTER TABLE `ibadahs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `jadwals`
 --
 ALTER TABLE `jadwals`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `pelayanans`
 --
 ALTER TABLE `pelayanans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pelayans`
 --
 ALTER TABLE `pelayans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `pelayan_to_ibadahs`
 --
 ALTER TABLE `pelayan_to_ibadahs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `pelayan_to_pelayanans`
 --
 ALTER TABLE `pelayan_to_pelayanans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+
+--
+-- AUTO_INCREMENT for table `presensis`
+--
+ALTER TABLE `presensis`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tims`
+--
+ALTER TABLE `tims`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -708,6 +848,7 @@ ALTER TABLE `jadwals`
   ADD CONSTRAINT `jadwals_id_live_cam_4_foreign` FOREIGN KEY (`id_live_cam_4`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `jadwals_id_live_cam_5_foreign` FOREIGN KEY (`id_live_cam_5`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `jadwals_id_live_op_foreign` FOREIGN KEY (`id_live_op`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `jadwals_id_tim_foreign` FOREIGN KEY (`id_tim`) REFERENCES `tims` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `jadwals_id_videotron_foreign` FOREIGN KEY (`id_videotron`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL;
 
 --
@@ -723,6 +864,27 @@ ALTER TABLE `pelayan_to_ibadahs`
 ALTER TABLE `pelayan_to_pelayanans`
   ADD CONSTRAINT `pelayan_to_pelayanans_id_pelayan_foreign` FOREIGN KEY (`id_pelayan`) REFERENCES `pelayans` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pelayan_to_pelayanans_id_pelayanan_foreign` FOREIGN KEY (`id_pelayanan`) REFERENCES `pelayanans` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `presensis`
+--
+ALTER TABLE `presensis`
+  ADD CONSTRAINT `presensis_id_jadwal_foreign` FOREIGN KEY (`id_jadwal`) REFERENCES `jadwals` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `presensis_id_pelayan_foreign` FOREIGN KEY (`id_pelayan`) REFERENCES `pelayans` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `tims`
+--
+ALTER TABLE `tims`
+  ADD CONSTRAINT `tims_id_foto_foreign` FOREIGN KEY (`id_foto`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_ibadah_foreign` FOREIGN KEY (`id_ibadah`) REFERENCES `ibadahs` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `tims_id_live_cam_1_foreign` FOREIGN KEY (`id_live_cam_1`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_live_cam_2_foreign` FOREIGN KEY (`id_live_cam_2`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_live_cam_3_foreign` FOREIGN KEY (`id_live_cam_3`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_live_cam_4_foreign` FOREIGN KEY (`id_live_cam_4`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_live_cam_5_foreign` FOREIGN KEY (`id_live_cam_5`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_live_op_foreign` FOREIGN KEY (`id_live_op`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `tims_id_videotron_foreign` FOREIGN KEY (`id_videotron`) REFERENCES `pelayans` (`id`) ON DELETE SET NULL;
 
 --
 -- Constraints for table `users`

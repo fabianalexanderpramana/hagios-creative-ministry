@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 use App\Http\Controllers\PelayanController;
 use App\Http\Controllers\PelayananController;
@@ -17,20 +18,25 @@ use App\Http\Controllers\PresensiController;
 // auth routes dari Breeze
 require __DIR__.'/auth.php';
 
-// redirect root ke dashboard
+// redirect root: guest ke jadwal, user login ke dashboard
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    }
+    return redirect()->route('jadwals.index');
 });
 
 Route::get('/change-password', [ChangePasswordController::class, 'index'])->name('password.change.form');
 Route::post('/change-password', [ChangePasswordController::class, 'update'])->name('password.change');
+
+// Route yang bisa diakses guest
+Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');
 
 // Semua user login
 Route::middleware(['auth'])->group(function () {
 
     // akses semua user
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');
     Route::get('/tims', [TimController::class, 'index'])->name('tims.index');
     Route::get('/ibadahs', [IbadahController::class, 'index'])->name('ibadahs.index');
 
