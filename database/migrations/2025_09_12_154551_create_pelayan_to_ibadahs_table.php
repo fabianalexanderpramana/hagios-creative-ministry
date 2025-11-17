@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelayan_to_ibadahs', function (Blueprint $table) {
+        Schema::create('hcm_pelayan_to_ibadahs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pelayan')->constrained('pelayans')->onDelete('cascade');
-            $table->foreignId('id_ibadah')->constrained('ibadahs')->onDelete('cascade');
+            $table->foreignId('id_pelayan')->constrained('hcm_pelayans')->onDelete('cascade');
+            $table->foreignId('id_ibadah')->constrained('hcm_ibadahs')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelayan_to_ibadahs');
+        Schema::dropIfExists('hcm_pelayan_to_ibadahs');
     }
 };

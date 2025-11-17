@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (!Schema::hasColumn('users', 'pelayan_id')) {
+        Schema::table('hcm_users', function (Blueprint $table) {
+            if (!Schema::hasColumn('hcm_users', 'pelayan_id')) {
                 $table->unsignedBigInteger('pelayan_id')->nullable()->after('id');
                 $table->foreign('pelayan_id')
                       ->references('id')
-                      ->on('pelayans')
+                      ->on('hcm_pelayans')
                       ->onDelete('cascade');
             }
         });
@@ -20,8 +20,8 @@ return new class extends Migration {
     
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn('users', 'pelayan_id')) {
+        Schema::table('hcm_users', function (Blueprint $table) {
+            if (Schema::hasColumn('hcm_users', 'pelayan_id')) {
                 $table->dropForeign(['pelayan_id']);
                 $table->dropColumn('pelayan_id');
             }

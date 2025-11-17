@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('jadwals', function (Blueprint $table) {
-            $table->foreignId('id_tim')->nullable()->constrained('tims')->onDelete('set null');
+        Schema::table('hcm_jadwals', function (Blueprint $table) {
+            $table->foreignId('id_tim')->nullable()->constrained('hcm_tims')->onDelete('set null');
         });
     }
 
@@ -21,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('jadwals', function (Blueprint $table) {
+        Schema::table('hcm_jadwals', function (Blueprint $table) {
             $table->dropForeign(['id_tim']);
             $table->dropColumn('id_tim');
         });

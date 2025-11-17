@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('hcm_users', function (Blueprint $table) {
             $table->foreignId('pelayan_id')
                 ->nullable()
-                ->constrained('pelayans')
+                ->constrained('hcm_pelayans')
                 ->onDelete('cascade');
         });
     }
@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('hcm_users', function (Blueprint $table) {
             $table->dropForeign(['pelayan_id']);
             $table->dropColumn('pelayan_id');
         });

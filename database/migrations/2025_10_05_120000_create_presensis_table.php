@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('presensis', function (Blueprint $table) {
+        Schema::create('hcm_presensis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_pelayan');
             $table->unsignedBigInteger('id_jadwal');
             $table->enum('status_kehadiran', ['hadir','terlambat','izin','tidak hadir']);
             $table->timestamps();
 
-            $table->foreign('id_pelayan')->references('id')->on('pelayans')->onDelete('cascade');
-            $table->foreign('id_jadwal')->references('id')->on('jadwals')->onDelete('cascade');
+            $table->foreign('id_pelayan')->references('id')->on('hcm_pelayans')->onDelete('cascade');
+            $table->foreign('id_jadwal')->references('id')->on('hcm_jadwals')->onDelete('cascade');
             $table->unique(['id_pelayan','id_jadwal']);
         });
     }
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('presensis');
+        Schema::dropIfExists('hcm_presensis');
     }
 };
 

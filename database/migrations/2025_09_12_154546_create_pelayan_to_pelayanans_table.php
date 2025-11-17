@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pelayan_to_pelayanans', function (Blueprint $table) {
+        Schema::create('hcm_pelayan_to_pelayanans', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_pelayan')->constrained('pelayans')->onDelete('cascade');
-            $table->foreignId('id_pelayanan')->constrained('pelayanans')->onDelete('cascade');
+            $table->foreignId('id_pelayan')->constrained('hcm_pelayans')->onDelete('cascade');
+            $table->foreignId('id_pelayanan')->constrained('hcm_pelayanans')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pelayan_to_pelayanans');
+        Schema::dropIfExists('hcm_pelayan_to_pelayanans');
     }
 };

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tim extends Model
 {
+    protected $table = 'hcm_tims';
+    
     protected $fillable = [
         'nama_tim','id_ibadah','id_videotron','id_live_op',
         'id_live_cam_1','id_live_cam_2','id_live_cam_3',

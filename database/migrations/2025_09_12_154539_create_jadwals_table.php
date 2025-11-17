@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('jadwals', function (Blueprint $table) {
+        Schema::create('hcm_jadwals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_ibadah')->constrained('ibadahs')->onDelete('cascade');
+            $table->foreignId('id_ibadah')->constrained('hcm_ibadahs')->onDelete('cascade');
 
-            $table->foreignId('id_videotron')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_live_op')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_live_cam_1')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_live_cam_2')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_live_cam_3')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_live_cam_4')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_live_cam_5')->nullable()->constrained('pelayans')->onDelete('set null');
-            $table->foreignId('id_foto')->nullable()->constrained('pelayans')->onDelete('set null');
+            $table->foreignId('id_videotron')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_live_op')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_live_cam_1')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_live_cam_2')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_live_cam_3')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_live_cam_4')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_live_cam_5')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
+            $table->foreignId('id_foto')->nullable()->constrained('hcm_pelayans')->onDelete('set null');
 
             $table->string('keterangan', 256)->nullable();
             $table->timestamps();
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('jadwals');
+        Schema::dropIfExists('hcm_jadwals');
     }
 };

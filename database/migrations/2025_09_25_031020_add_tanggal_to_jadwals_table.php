@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('jadwals', function (Blueprint $table) {
+        Schema::table('hcm_jadwals', function (Blueprint $table) {
             $table->date('tanggal')->nullable()->after('id_ibadah');
         });        
     }
 
     public function down()
     {
-        Schema::table('jadwals', function (Blueprint $table) {
+        Schema::table('hcm_jadwals', function (Blueprint $table) {
             $table->dropColumn('tanggal');
         });
     }

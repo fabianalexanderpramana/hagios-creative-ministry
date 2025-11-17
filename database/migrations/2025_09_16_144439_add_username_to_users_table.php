@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('hcm_users', function (Blueprint $table) {
             $table->string('username')->unique()->after('id');
             $table->dropColumn('email'); // kalau memang tidak pakai email
         });
     }
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('hcm_users', function (Blueprint $table) {
             $table->dropColumn('username');
             $table->string('email')->unique();
         });

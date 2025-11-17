@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('hcm_users', function (Blueprint $table) {
             $table->dropColumn('name');
         });
     }
 
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('hcm_users', function (Blueprint $table) {
             $table->string('name');
         });
     }

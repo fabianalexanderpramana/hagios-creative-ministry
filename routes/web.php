@@ -42,11 +42,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Routes untuk dropdown (akses semua user yang login)
     Route::get('/dropdown-pelayan/{id}', function($id) {
-        return DB::table('pelayans')
-            ->join('pelayan_to_ibadahs', 'pelayans.id', '=', 'pelayan_to_ibadahs.id_pelayan')
-            ->join('ibadahs', 'ibadahs.id', '=', 'pelayan_to_ibadahs.id_ibadah')
-            ->where('ibadahs.id', $id)
-            ->select('pelayans.*')
+        return DB::table('hcm_pelayans')
+            ->join('hcm_pelayan_to_ibadahs', 'hcm_pelayans.id', '=', 'hcm_pelayan_to_ibadahs.id_pelayan')
+            ->join('hcm_ibadahs', 'hcm_ibadahs.id', '=', 'hcm_pelayan_to_ibadahs.id_ibadah')
+            ->where('hcm_ibadahs.id', $id)
+            ->select('hcm_pelayans.*')
             ->get();
     });
     Route::get('/dropdown-tim/{id}', [JadwalController::class, 'getTimsByIbadah']);

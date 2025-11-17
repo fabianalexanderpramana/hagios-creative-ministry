@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'hcm_users';
+
     protected $fillable = [
         'username',
         'email',
